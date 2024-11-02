@@ -1,5 +1,5 @@
 {
-  "name": "zivotopis",
+  "name": "pub-quiz-24",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,15 +7,27 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db:migrations:create": "knex migrate:make",
+    "db:migrations:migrate": "knex migrate:latest && npm run db:export-types",
+    "db:migrations:rollback": "knex migrate:rollback && npm run db:export-types",
+    "db:export-types": "npx @rmp135/sql-ts -c ./database/types/export-types-config.json"
   },
   "dependencies": {
     "@nuxt/eslint": "^0.6.0",
+    "@primevue/themes": "^4.2.0",
+    "@rmp135/sql-ts": "^2.1.0",
+    "better-sqlite3": "^9.6.0",
+    "knex": "^3.1.0",
+    "normalize.css": "^8.0.1",
     "nuxt": "^3.13.2",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.2.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@primevue/nuxt-module": "^4.2.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",

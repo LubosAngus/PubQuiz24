@@ -1,0 +1,10 @@
+{
+  "client": "better-sqlite3",
+  "connection": {
+    "filename": "./database/quiz_database.sqlite"
+  },
+  "useNullAsDefault": true,
+  "filename": "./database/types/database-types",
+  "tableNameCasing": "pascal",
+  "template": "./database/types/template.handlebars"
+}

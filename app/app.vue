@@ -1,3 +1,23 @@
 <template>
-  <h1>init</h1>
+  <Toast />
+
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
+
+<style lang="scss">
+@layer normalize, primevue;
+
+@import "normalize.css" layer(normalize-reset);
+@import "primeicons/primeicons.css";
+
+body {
+  // font-family: "JetBrains Mono", monospace;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+}
+</style>
