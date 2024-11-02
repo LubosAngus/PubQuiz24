@@ -1,6 +1,9 @@
 # Nuxt dev/build outputs
 .vscode/*
 !.vscode/settings.json.default
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .output
 .data
 .nuxt
