@@ -4,18 +4,6 @@
  * Never manually edit this file.
  */
 
-export interface KnexMigrationsEntity {
-  batch?: number | null;
-  id?: number;
-  migration_time?: Date | null;
-  name?: string | null;
-}
-
-export interface KnexMigrationsLockEntity {
-  index?: number;
-  is_locked?: number | null;
-}
-
 export interface ParticipantsEntity {
   id?: number;
   name: string;
