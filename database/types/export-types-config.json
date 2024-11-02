@@ -7,8 +7,5 @@
   "filename": "./database/types/database-types",
   "tableNameCasing": "pascal",
   "template": "./database/types/template.handlebars",
-  "excludedTables": [
-    "main.knex_migrations",
-    "main.knex_migrations_lock"
-  ]
+  "excludedTables": ["main.knex_migrations", "main.knex_migrations_lock"]
 }

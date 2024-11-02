@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <h1>hello dashboard</h1>
+  <h1>hello kvizy</h1>
 </template>

@@ -3,10 +3,10 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  return knex.schema.createTable("teams", (table) => {
-    table.increments("id").primary().notNullable();
-    table.text("name").notNullable();
-  });
+  return knex.schema.createTable('teams', (table) => {
+    table.increments('id').primary().notNullable().unique()
+    table.text('name').notNullable()
+  })
 }
 
 /**
@@ -14,5 +14,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable("teams");
+  return knex.schema.dropTable('teams')
 }

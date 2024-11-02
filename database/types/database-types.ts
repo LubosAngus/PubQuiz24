@@ -5,70 +5,66 @@
  */
 
 export interface ParticipantsEntity {
-  id?: number;
-  name: string;
+  id?: number
+  name: string
 }
 
 export interface QuestionsEntity {
-  answer: string;
-  audio_path_answer?: string | null;
-  audio_path_question?: string | null;
-  created_at?: Date;
-  id?: number;
-  image_path_answer?: string | null;
-  image_path_question?: string | null;
-  text: string;
-  updated_at?: Date;
-  video_path_answer?: string | null;
-  video_path_question?: string | null;
+  answer: string
+  audio_path_answer?: string | null
+  audio_path_question?: string | null
+  created_at?: Date
+  id?: number
+  image_path_answer?: string | null
+  image_path_question?: string | null
+  round_id: number
+  text: string
+  updated_at?: Date
+  video_path_answer?: string | null
+  video_path_question?: string | null
 }
 
 export interface QuizParticipantsEntity {
-  participant_id?: number;
-  quiz_id?: number;
+  participant_id?: number
+  quiz_id?: number
 }
 
 export interface QuizRoundsEntity {
-  quiz_id?: number;
-  round_id?: number;
+  quiz_id?: number
+  round_id?: number
 }
 
 export interface QuizTeamsEntity {
-  quiz_id?: number;
-  team_id?: number;
+  quiz_id?: number
+  team_id?: number
 }
 
 export interface QuizzesEntity {
-  created_at?: Date;
-  date?: Date | null;
-  description?: string | null;
-  id?: number;
-  title: string;
-  updated_at?: Date;
-}
-
-export interface RoundQuestionsEntity {
-  question_id?: number;
-  round_id?: number;
+  created_at?: Date
+  date?: Date | null
+  description?: string | null
+  id?: number
+  title: string
+  updated_at?: Date
 }
 
 export interface RoundsEntity {
-  created_at?: Date;
-  description?: string | null;
-  id?: number;
-  image_path?: string | null;
-  title: string;
-  updated_at?: Date;
+  created_at?: Date
+  description?: string | null
+  id?: number
+  image_path?: string | null
+  title: string
+  updated_at?: Date
 }
 
 export interface ScoresEntity {
-  quiz_id?: number | null;
-  round_id?: number;
-  score: number;
-  team_id?: number;
+  quiz_id?: number | null
+  round_id?: number
+  score: number
+  team_id?: number
 }
 
 export interface TeamsEntity {
-  id?: number;
-  name: string;
+  id?: number
+  name: string
 }

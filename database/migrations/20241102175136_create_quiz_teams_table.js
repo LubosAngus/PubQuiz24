@@ -3,23 +3,23 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  return knex.schema.createTable("quiz_teams", (table) => {
+  return knex.schema.createTable('quiz_teams', (table) => {
     table
-      .integer("quiz_id")
-      .references("id")
-      .inTable("quizzes")
-      .onDelete("CASCADE")
+      .integer('quiz_id')
+      .references('id')
+      .inTable('quizzes')
+      .onDelete('CASCADE')
       .notNullable()
-      .index();
+      .index()
     table
-      .integer("team_id")
-      .references("id")
-      .inTable("teams")
-      .onDelete("CASCADE")
+      .integer('team_id')
+      .references('id')
+      .inTable('teams')
+      .onDelete('CASCADE')
       .notNullable()
-      .index();
-    table.primary(["quiz_id", "team_id"]);
-  });
+      .index()
+    table.primary(['quiz_id', 'team_id'])
+  })
 }
 
 /**
@@ -27,5 +27,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable("quiz_teams");
+  return knex.schema.dropTable('quiz_teams')
 }

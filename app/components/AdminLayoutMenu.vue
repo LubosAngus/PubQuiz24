@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
 const items = ref([
   {
-    label: "Kvíz",
+    label: 'Dashboard',
+    icon: 'house',
+    route: '/admin',
+  },
+  {
+    key: 'builder',
+    label: 'Builder',
     items: [
       {
-        label: "Spustená hra",
-        icon: "pi pi-play-circle",
-        route: "/admin/quiz",
+        label: 'Kvízy',
+        icon: 'layer-group',
+        route: '/admin/quizes',
+      },
+      {
+        label: 'Kolá',
+        icon: 'table-list',
+        route: '/admin/rounds',
       },
     ],
   },
-]);
+])
 </script>
 
 <template>
@@ -29,7 +35,7 @@ const items = ref([
           custom
         >
           <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-            <span :class="item.icon" />
+            <FontAwesomeIcon :icon="item.icon" />
             <span>{{ item.label }}</span>
           </a>
         </router-link>

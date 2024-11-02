@@ -3,11 +3,11 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  return knex.schema.createTable('quizzes', (table) => {
+  return knex.schema.createTable('rounds', (table) => {
     table.increments('id').primary().notNullable().unique()
     table.text('title').notNullable()
     table.text('description').nullable()
-    table.date('date').nullable()
+    table.text('image_path').nullable()
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
     table.timestamp('updated_at').defaultTo(knex.fn.now()).notNullable()
   })
@@ -18,5 +18,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable('quizzes')
+  return knex.schema.dropTable('rounds')
 }

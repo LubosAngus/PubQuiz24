@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminLayoutMenu from "~/components/AdminLayoutMenu.vue";
+import AdminLayoutMenu from '~/components/AdminLayoutMenu.vue'
 </script>
 
 <template>

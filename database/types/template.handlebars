@@ -14,7 +14,7 @@ export interface {{interfaceName}} {{#if extends}}extends {{extends}} {{/if}}{
 
   /* {{comment}} */
   {{/if}}
-  {{propertyName}}{{#if optional}}?{{/if}}: {{propertyType}}{{#if nullable}} | null{{/if}};
+  {{propertyName}}{{#if optional}}?{{/if}}: {{propertyType}}{{#if nullable}} | null{{/if}}
   {{/each}}
 }
 {{/each}}
