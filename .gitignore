@@ -1,5 +1,6 @@
 # Nuxt dev/build outputs
 .vscode/*
+!.vscode/settings.json.default
 .output
 .data
 .nuxt
