@@ -1,7 +1,8 @@
-import Lara from '@primevue/themes/lara'
+import Aura from '@primevue/themes/aura'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   compatibilityDate: '2024-04-03',
   future: {
     compatibilityVersion: 4,
@@ -9,11 +10,11 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  modules: ['@nuxt/eslint', '@primevue/nuxt-module'],
+  modules: ['@nuxt/eslint', '@primevue/nuxt-module', '@nuxtjs/tailwindcss'],
   primevue: {
     options: {
       theme: {
-        preset: Lara,
+        preset: Aura,
         ripple: true,
         inputVariant: 'filled',
       },

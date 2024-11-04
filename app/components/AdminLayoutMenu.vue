@@ -5,22 +5,6 @@ const items = ref([
     icon: 'house',
     route: '/admin',
   },
-  {
-    key: 'builder',
-    label: 'Builder',
-    items: [
-      {
-        label: 'Kvízy',
-        icon: 'layer-group',
-        route: '/admin/quizes',
-      },
-      {
-        label: 'Kolá',
-        icon: 'table-list',
-        route: '/admin/rounds',
-      },
-    ],
-  },
 ])
 </script>
 
@@ -35,7 +19,7 @@ const items = ref([
           custom
         >
           <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-            <FontAwesomeIcon :icon="item.icon" />
+            <FontAwesomeIcon :icon="`fa-solid fa-${item.icon}`" />
             <span>{{ item.label }}</span>
           </a>
         </router-link>
