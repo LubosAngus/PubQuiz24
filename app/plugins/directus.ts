@@ -4,6 +4,7 @@ import {
   readItems,
   readSingleton,
   rest,
+  updateSingleton,
 } from '@directus/sdk'
 import type { DirectusTypes } from '~~/types/directus'
 
@@ -18,6 +19,7 @@ export default defineNuxtPlugin(() => {
       readItem,
       readItems,
       readSingleton,
+      updateSingleton,
     },
   }
 })
