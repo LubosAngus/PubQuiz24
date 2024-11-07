@@ -1,54 +1,103 @@
 <script setup lang="ts">
-import type { QuizesEntity } from '~~/types/directus'
+const currentGameStore = useCurrentGameStore()
+const visible = defineModel<boolean>()
+const { $directus, $readItems, $updateSingleton } = useNuxtApp()
+const { data, execute, status } = await useAsyncData(
+  'quizes',
+  () => {
+    return $directus.request(
+      $readItems('quizes', {
+        fields: ['id', 'name'],
+      }),
+    )
+  },
+  {
+    immediate: false,
+  },
+)
 
-const op = ref()
-const { $directus, $readItems, $readSingleton, $updateSingleton } = useNuxtApp()
+const isUpdating = ref(false)
 
-const { data: currentGame } = await useAsyncData('current_game', () => {
-  return $directus.request(
-    $readSingleton('current_game', {
-      fields: [{ quiz: ['name'] }],
+async function updateQuiz() {
+  if (currentGameStore.data?.quiz.id === selectedQuizId.value) {
+    return closeDialog()
+  }
+
+  isUpdating.value = true
+
+  await $directus.request(
+    $updateSingleton('current_game', {
+      quiz: selectedQuizId.value,
+      topic: null,
+      question: null,
+      state: 'logo',
     }),
   )
+
+  isUpdating.value = false
+
+  closeDialog()
+}
+
+function closeDialog() {
+  visible.value = false
+}
+
+const selectedQuizId = ref()
+watch(visible, (newValue) => {
+  if (!newValue) return
+
+  selectedQuizId.value = currentGameStore.data?.quiz?.id
+
+  execute()
 })
-
-const togglePopover = (event: Event) => {
-  op.value.toggle(event)
-}
-
-const selectQuiz = (quiz: Partial<QuizesEntity>) => {
-  op.value.hide()
-}
 </script>
 
 <template>
-  <div>
-    <pre>{{ currentGame }}</pre>
+  <Dialog
+    v-model:visible="visible"
+    modal
+    header="Výber kvízu"
+    :style="{
+      width: '25rem',
+      maxWidth: '80vw',
+    }"
+    :draggable="false"
+    :closable="false"
+    :close-on-escape="!isUpdating"
+  >
+    <div class="mb-6">
+      <Skeleton v-if="status === 'pending'" height="2.44rem" />
 
-    <Button
-      type="button"
-      :label="currentGame?.quiz?.name || 'Vyber kvíz'"
-      class="min-w-48"
-      @click="togglePopover"
-    />
+      <Select
+        v-else
+        v-model="selectedQuizId"
+        :options="data"
+        option-value="id"
+        option-label="name"
+        placeholder="Select a Country"
+        class="w-full"
+        :disabled="isUpdating"
+      />
+    </div>
 
-    <Popover ref="op">
-      <div class="flex flex-col gap-4">
-        <div>
-          <span class="font-medium block mb-2">Quizes</span>
+    <div class="flex justify-end gap-2">
+      <Button
+        type="button"
+        label="Zrušiť"
+        severity="secondary"
+        variant="outlined"
+        :disabled="isUpdating"
+        @click="closeDialog"
+      ></Button>
 
-          <ul class="list-none p-0 m-0 flex flex-col">
-            <li
-              v-for="quiz in quizes"
-              :key="quiz.id"
-              class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-              @click="selectQuiz(quiz)"
-            >
-              {{ quiz.name }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </Popover>
-  </div>
+      <Button
+        type="button"
+        label="Uložiť"
+        :loading="isUpdating"
+        :disabled="isUpdating || status === 'pending'"
+        @click="updateQuiz"
+      ></Button>
+    </div>
+  </Dialog>
 </template>

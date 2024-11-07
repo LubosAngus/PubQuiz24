@@ -1,4 +1,4 @@
-import Aura from '@primevue/themes/aura'
+import MyTheme from './primevue.theme'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -10,11 +10,16 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  modules: ['@nuxt/eslint', '@primevue/nuxt-module', '@nuxtjs/tailwindcss'],
+  modules: [
+    '@nuxt/eslint',
+    '@primevue/nuxt-module',
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+  ],
   primevue: {
     options: {
       theme: {
-        preset: Aura,
+        preset: MyTheme,
         ripple: true,
         inputVariant: 'filled',
       },

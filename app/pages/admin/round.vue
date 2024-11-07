@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <h1>Ahoj</h1>
+  <RoundSelector />
 </template>

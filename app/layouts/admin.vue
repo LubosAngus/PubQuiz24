@@ -3,28 +3,15 @@ import AdminLayoutMenu from '~/components/AdminLayoutMenu.vue'
 </script>
 
 <template>
-  <div class="l-admin">
-    <div class="l-admin__menu">
+  <div class="flex flex-row gap-4 p-4">
+    <div class="flex-1 max-w-52">
+      <QuizSelector class="mb-4" />
+
       <AdminLayoutMenu />
     </div>
 
-    <div class="l-admin__content">
+    <div class="flex-auto">
       <slot />
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.l-admin {
-  & {
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 2rem;
-  }
-  &__menu {
-  }
-  &__content {
-  }
-}
-</style>

@@ -1,31 +1,28 @@
 <script setup lang="ts">
-const { $directusWebsocket } = useNuxtApp()
+const currentGameStore = useCurrentGameStore()
+const isDialogVisible = ref(false)
 
-const currentGameData = ref()
-
-onMounted(async () => {
-  const { subscription } = await $directusWebsocket.subscribe('current_game', {
-    query: {
-      fields: ['*.*'],
-    },
-  })
-
-  for await (const item of subscription) {
-    currentGameData.value = item.data[0]
-  }
-})
-
-watchEffect(() => {
-  console.log(currentGameData.value)
-})
+function openDialog() {
+  isDialogVisible.value = true
+}
 </script>
 
 <template>
   <div>
     <Button
       type="button"
-      :label="currentGameData?.quiz?.name || 'Vyber kvíz'"
-      class="min-w-48"
+      :label="
+        !currentGameStore.isInitialized
+          ? '...'
+          : currentGameStore.data?.quiz?.name || 'Vyber kvíz'
+      "
+      class="w-full"
+      :loading="!currentGameStore.isInitialized"
+      size="small"
+      style="--p-button-label-font-weight: 700"
+      @click="openDialog"
     />
+
+    <QuizSelectorDialog v-model="isDialogVisible" />
   </div>
 </template>
