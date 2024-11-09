@@ -10,6 +10,7 @@ export type CurrentGameEntity = {
   id: number
   question: string | QuestionsEntity | null
   quiz: string | QuizesEntity | null
+  round_index: number | null
   state: 'logo' | 'intro' | 'gameplay' | 'countdown' | 'break' | 'leaderboard'
   topic: string | TopicsEntity | null
 }
