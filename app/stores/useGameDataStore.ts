@@ -8,7 +8,11 @@ export const useGameDataStore = defineStore('gameData', () => {
   const { $directus, $readItems } = useNuxtApp()
   const currentGameStore = useCurrentGameStore()
 
-  const { data: rawData, status } = useAsyncData(
+  const {
+    data: rawData,
+    status,
+    refresh: refreshData,
+  } = useAsyncData(
     'game_data',
     () => {
       return $directus.request(
@@ -151,6 +155,7 @@ export const useGameDataStore = defineStore('gameData', () => {
 
   return {
     data,
+    refreshData,
     status,
     topics,
     rounds,

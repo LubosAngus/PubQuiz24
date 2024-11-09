@@ -15,6 +15,10 @@ function selectQuestion(topic, question) {
     question: question.id,
   })
 }
+
+function isQuestionSelected(question) {
+  return gameDataStore.selectedQuestionId === question.id
+}
 </script>
 
 <template>
@@ -53,35 +57,81 @@ function selectQuestion(topic, question) {
             severity="contrast"
             type="button"
             class="w-fit text-left leading-5"
-            :variant="
-              gameDataStore.selectedQuestionId !== question.id
-                ? 'outlined'
-                : undefined
-            "
+            :variant="!isQuestionSelected(question) ? 'outlined' : undefined"
             size="small"
             @click="selectQuestion(topic, question)"
           >
-            <div class="flex flex-col items-start gap-1">
+            <div class="flex flex-col items-start">
               <div
-                class="font-bold"
+                class="font-bold flex gap-2"
                 :class="{
-                  'text-slate-500':
-                    gameDataStore.selectedQuestionId !== question.id,
-                  'text-slate-950':
-                    gameDataStore.selectedQuestionId === question.id,
+                  'text-slate-500': !isQuestionSelected(question),
+                  'text-slate-950': isQuestionSelected(question),
                 }"
-                v-html="question.question"
-              />
+              >
+                <div
+                  v-if="
+                    question.question_image ||
+                    question.question_audio ||
+                    question.question_video ||
+                    question.question_video_link
+                  "
+                >
+                  <font-awesome-icon
+                    v-if="question.question_image"
+                    :icon="['fas', 'image']"
+                  />
+                  <font-awesome-icon
+                    v-if="question.question_audio"
+                    :icon="['fas', 'music']"
+                  />
+                  <font-awesome-icon
+                    v-if="question.question_video"
+                    :icon="['fas', 'clapperboard']"
+                  />
+                  <font-awesome-icon
+                    v-if="question.question_video_link"
+                    :icon="['fab', 'youtube']"
+                  />
+                </div>
+
+                <span v-html="question.question" />
+              </div>
               <div
-                class="font-semibold italic text-xs"
+                class="font-semibold italic text-xs flex gap-2"
                 :class="{
-                  'text-slate-600':
-                    gameDataStore.selectedQuestionId !== question.id,
-                  'text-slate-400':
-                    gameDataStore.selectedQuestionId === question.id,
+                  'text-slate-600': !isQuestionSelected(question),
+                  'text-slate-400': isQuestionSelected(question),
                 }"
-                v-html="question.answer"
-              />
+              >
+                <div
+                  v-if="
+                    question.answer_image ||
+                    question.answer_audio ||
+                    question.answer_video ||
+                    question.answer_video_link
+                  "
+                >
+                  <font-awesome-icon
+                    v-if="question.answer_image"
+                    :icon="['fas', 'image']"
+                  />
+                  <font-awesome-icon
+                    v-if="question.answer_audio"
+                    :icon="['fas', 'music']"
+                  />
+                  <font-awesome-icon
+                    v-if="question.answer_video"
+                    :icon="['fas', 'clapperboard']"
+                  />
+                  <font-awesome-icon
+                    v-if="question.answer_video_link"
+                    :icon="['fab', 'youtube']"
+                  />
+                </div>
+
+                <span v-html="question.answer" />
+              </div>
             </div>
           </Button>
         </template>
