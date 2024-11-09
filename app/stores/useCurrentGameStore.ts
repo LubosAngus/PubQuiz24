@@ -38,12 +38,12 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
               'question.id',
               'round_index',
               'state',
-              'quiz.topics.topics_id.id',
-              'quiz.topics.topics_id.name',
-              'quiz.topics.topics_id.questions.id',
-              'quiz.topics.topics_id.questions.question',
-              'quiz.topics.topics_id.questions.answer',
-              'quiz.topics.topics_id.questions.notes',
+              // 'quiz.topics.topics_id.id',
+              // 'quiz.topics.topics_id.name',
+              // 'quiz.topics.topics_id.questions.id',
+              // 'quiz.topics.topics_id.questions.question',
+              // 'quiz.topics.topics_id.questions.answer',
+              // 'quiz.topics.topics_id.questions.notes',
             ],
           },
         },
@@ -66,7 +66,12 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
   async function updateCurrentGame(data) {
     isUpdating.value = true
 
-    await $directus.request($updateSingleton('current_game', data))
+    await $directusWebsocket.sendMessage({
+      type: 'items',
+      collection: 'current_game',
+      action: 'update',
+      data,
+    })
 
     isUpdating.value = false
   }

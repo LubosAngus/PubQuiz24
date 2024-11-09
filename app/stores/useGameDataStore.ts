@@ -5,6 +5,7 @@ export const useGameDataStore = defineStore('gameData', () => {
   const currentGameStore = useCurrentGameStore()
 
   const { data: rawData, status } = useAsyncData(
+    'game_data',
     () => {
       return $directus.request(
         $readItems('quizes', {

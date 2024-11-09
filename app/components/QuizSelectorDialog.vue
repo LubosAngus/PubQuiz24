@@ -21,6 +21,8 @@ async function updateQuiz() {
     return closeDialog()
   }
 
+  clearNuxtData('game_data')
+
   await currentGameStore.updateCurrentGame({
     quiz: selectedQuizId.value,
     topic: null,
