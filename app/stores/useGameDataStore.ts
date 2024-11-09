@@ -4,11 +4,7 @@ export const useGameDataStore = defineStore('gameData', () => {
   const { $directus, $readItems } = useNuxtApp()
   const currentGameStore = useCurrentGameStore()
 
-  const {
-    data: rawData,
-    status,
-    execute,
-  } = useAsyncData(
+  const { data: rawData, status } = useAsyncData(
     () => {
       return $directus.request(
         $readItems('quizes', {
@@ -124,6 +120,18 @@ export const useGameDataStore = defineStore('gameData', () => {
     })
   }) as ComputedRef<QuestionsEntity | undefined>
 
+  const selectedRound = computed(() => {
+    const roundIndex = currentGameStore.data?.round_index
+
+    if (roundIndex === null || roundIndex === undefined) {
+      return
+    }
+
+    return rounds.value.find((round) => {
+      return round.index === roundIndex
+    })
+  })
+
   return {
     data,
     status,
@@ -131,5 +139,6 @@ export const useGameDataStore = defineStore('gameData', () => {
     rounds,
     selectedTopic,
     selectedQuestion,
+    selectedRound,
   }
 })

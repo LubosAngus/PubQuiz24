@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const currentGameStore = useCurrentGameStore()
 const visible = defineModel<boolean>()
-const { $directus, $readItems, $updateSingleton } = useNuxtApp()
+const { $directus, $readItems } = useNuxtApp()
 const { data, execute, status } = await useAsyncData(
   'quizes',
   () => {
@@ -16,25 +16,18 @@ const { data, execute, status } = await useAsyncData(
   },
 )
 
-const isUpdating = ref(false)
-
 async function updateQuiz() {
   if (currentGameStore.data?.quiz.id === selectedQuizId.value) {
     return closeDialog()
   }
 
-  isUpdating.value = true
-
-  await $directus.request(
-    $updateSingleton('current_game', {
-      quiz: selectedQuizId.value,
-      topic: null,
-      question: null,
-      state: 'logo',
-    }),
-  )
-
-  isUpdating.value = false
+  await currentGameStore.updateCurrentGame({
+    quiz: selectedQuizId.value,
+    topic: null,
+    question: null,
+    round_index: null,
+    state: 'logo',
+  })
 
   closeDialog()
 }
@@ -57,14 +50,14 @@ watch(visible, (newValue) => {
   <Dialog
     v-model:visible="visible"
     modal
-    header="Výber kvízu"
+    header="Vyber kvíz"
     :style="{
       width: '25rem',
       maxWidth: '80vw',
     }"
     :draggable="false"
     :closable="false"
-    :close-on-escape="!isUpdating"
+    :close-on-escape="!currentGameStore.isUpdating"
   >
     <div class="mb-6">
       <Skeleton v-if="status === 'pending'" height="2.44rem" />
@@ -77,7 +70,7 @@ watch(visible, (newValue) => {
         option-label="name"
         placeholder="Select a Country"
         class="w-full"
-        :disabled="isUpdating"
+        :disabled="currentGameStore.isUpdating"
       />
     </div>
 
@@ -87,15 +80,17 @@ watch(visible, (newValue) => {
         label="Zrušiť"
         severity="secondary"
         variant="outlined"
-        :disabled="isUpdating"
+        :disabled="currentGameStore.isUpdating"
+        size="small"
         @click="closeDialog"
       ></Button>
 
       <Button
         type="button"
         label="Uložiť"
-        :loading="isUpdating"
-        :disabled="isUpdating || status === 'pending'"
+        :loading="currentGameStore.isUpdating"
+        :disabled="currentGameStore.isUpdating || status === 'pending'"
+        size="small"
         @click="updateQuiz"
       ></Button>
     </div>

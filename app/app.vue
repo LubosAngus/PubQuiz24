@@ -19,5 +19,10 @@ body {
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--p-surface-950);
+    color: var(--p-surface-0);
+  }
 }
 </style>

@@ -1,9 +1,10 @@
 import type { CurrentGameEntity } from '~~/types/directus'
 
 export const useCurrentGameStore = defineStore('currentGame', () => {
-  const { $directusWebsocket } = useNuxtApp()
+  const { $directusWebsocket, $directus, $updateSingleton } = useNuxtApp()
   const data = ref<CurrentGameEntity>()
   const isInitialized = ref(false)
+  const isUpdating = ref(false)
 
   const waitForInitialization = () => {
     return new Promise((resolve) => {
@@ -35,6 +36,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
               'quiz.name',
               'topic.id',
               'question.id',
+              'round_index',
               'state',
               'quiz.topics.topics_id.id',
               'quiz.topics.topics_id.name',
@@ -61,5 +63,19 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
 
   initSubscription()
 
-  return { data, isInitialized, waitForInitialization }
+  async function updateCurrentGame(data) {
+    isUpdating.value = true
+
+    await $directus.request($updateSingleton('current_game', data))
+
+    isUpdating.value = false
+  }
+
+  return {
+    data,
+    isInitialized,
+    waitForInitialization,
+    updateCurrentGame,
+    isUpdating,
+  }
 })

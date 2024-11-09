@@ -5,24 +5,32 @@ const isDialogVisible = ref(false)
 function openDialog() {
   isDialogVisible.value = true
 }
+
+const buttonLabel = computed(() => {
+  if (!currentGameStore.isInitialized) {
+    return '...'
+  }
+
+  if (currentGameStore.data?.quiz?.name) {
+    return currentGameStore.data?.quiz?.name
+  }
+
+  return 'Vyber kvíz'
+})
 </script>
 
 <template>
-  <div>
-    <Button
-      type="button"
-      :label="
-        !currentGameStore.isInitialized
-          ? '...'
-          : currentGameStore.data?.quiz?.name || 'Vyber kvíz'
-      "
-      class="w-full"
-      :loading="!currentGameStore.isInitialized"
-      size="small"
-      style="--p-button-label-font-weight: 700"
-      @click="openDialog"
-    />
+  <Button
+    type="button"
+    class="w-full"
+    :style="{
+      '--p-button-padding-y': '0.75rem',
+    }"
+    :loading="!currentGameStore.isInitialized"
+    @click="openDialog"
+  >
+    <span class="font-bold tracking-wide leading-4">{{ buttonLabel }}</span>
+  </Button>
 
-    <QuizSelectorDialog v-model="isDialogVisible" />
-  </div>
+  <QuizSelectorDialog v-model="isDialogVisible" />
 </template>
