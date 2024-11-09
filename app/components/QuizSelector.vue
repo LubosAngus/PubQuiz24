@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const currentGameStore = useCurrentGameStore()
+const gameDataStore = useGameDataStore()
 const isDialogVisible = ref(false)
 
 function openDialog() {
@@ -7,12 +7,12 @@ function openDialog() {
 }
 
 const buttonLabel = computed(() => {
-  if (!currentGameStore.isInitialized) {
+  if (!gameDataStore.data) {
     return '...'
   }
 
-  if (currentGameStore.data?.quiz?.name) {
-    return currentGameStore.data?.quiz?.name
+  if (gameDataStore.selectedQuizName) {
+    return gameDataStore.selectedQuizName
   }
 
   return 'Vyber kvíz'
@@ -20,13 +20,24 @@ const buttonLabel = computed(() => {
 </script>
 
 <template>
+  <Skeleton
+    v-if="!gameDataStore.data"
+    height="2.63rem"
+    :style="{
+      '--p-skeleton-background':
+        'color-mix(in srgb, var(--p-primary-color) 15%, transparent)',
+      '--p-skeleton-animation-background':
+        'color-mix(in srgb, var(--p-primary-color) 50%, transparent)',
+    }"
+  />
+
   <Button
+    v-else
     type="button"
     class="w-full"
     :style="{
       '--p-button-padding-y': '0.75rem',
     }"
-    :loading="!currentGameStore.isInitialized"
     @click="openDialog"
   >
     <span class="font-bold tracking-wide leading-4">{{ buttonLabel }}</span>

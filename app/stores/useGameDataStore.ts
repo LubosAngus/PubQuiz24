@@ -1,5 +1,9 @@
 import type { QuestionsEntity, TopicsEntity } from '~~/types/directus'
 
+function isNullOrUndefined(value: unknown) {
+  return value === null || value === undefined
+}
+
 export const useGameDataStore = defineStore('gameData', () => {
   const { $directus, $readItems } = useNuxtApp()
   const currentGameStore = useCurrentGameStore()
@@ -42,7 +46,7 @@ export const useGameDataStore = defineStore('gameData', () => {
           ],
           filter: {
             id: {
-              _eq: currentGameStore.data?.quiz.id,
+              _eq: currentGameStore.data?.quiz,
             },
           },
         }),
@@ -50,7 +54,7 @@ export const useGameDataStore = defineStore('gameData', () => {
     },
     {
       immediate: !!currentGameStore.data,
-      watch: [() => currentGameStore.data?.quiz.id],
+      watch: [() => currentGameStore.data?.quiz],
     },
   )
 
@@ -58,8 +62,6 @@ export const useGameDataStore = defineStore('gameData', () => {
     if (!rawData.value) {
       return
     }
-
-    console.log(rawData.value?.[0])
 
     return rawData.value?.[0]
   })
@@ -75,7 +77,7 @@ export const useGameDataStore = defineStore('gameData', () => {
   }) as ComputedRef<TopicsEntity[] | undefined>
 
   const rounds = computed(() => {
-    if (!topics.value) return
+    if (!topics.value?.length) return
 
     const ROUND_GROUP_SIZE = 2
     const rounds = []
@@ -101,35 +103,49 @@ export const useGameDataStore = defineStore('gameData', () => {
     }[]
   >
 
+  const selectedQuizName = computed(() => {
+    return data.value?.name
+  })
+
+  const selectedTopicId = computed(() => {
+    return currentGameStore.data?.topic
+  })
+
   const selectedTopic = computed(() => {
-    if (!data.value || !currentGameStore.data?.topic?.id) {
+    if (isNullOrUndefined(selectedTopicId.value)) {
       return
     }
 
     return topics.value?.find((topic) => {
-      return topic.id === currentGameStore.data?.topic?.id
+      return topic.id === selectedTopicId.value
     })
   }) as ComputedRef<TopicsEntity | undefined>
 
+  const selectedQuestionId = computed(() => {
+    return currentGameStore.data?.question
+  })
+
   const selectedQuestion = computed(() => {
-    if (!selectedTopic.value) {
+    if (isNullOrUndefined(selectedQuestionId.value)) {
       return
     }
 
-    return selectedTopic.value.questions.find((question) => {
-      return question.id === currentGameStore.data?.question?.id
+    return selectedTopic.value?.questions.find((question) => {
+      return question.id === selectedQuestionId.value
     })
   }) as ComputedRef<QuestionsEntity | undefined>
 
-  const selectedRound = computed(() => {
-    const roundIndex = currentGameStore.data?.round_index
+  const selectedRoundIndex = computed(() => {
+    return currentGameStore.data?.round_index
+  })
 
-    if (roundIndex === null || roundIndex === undefined) {
+  const selectedRound = computed(() => {
+    if (isNullOrUndefined(selectedRoundIndex.value)) {
       return
     }
 
-    return rounds.value.find((round) => {
-      return round.index === roundIndex
+    return rounds.value?.find((round) => {
+      return round.index === selectedRoundIndex.value
     })
   })
 
@@ -138,8 +154,12 @@ export const useGameDataStore = defineStore('gameData', () => {
     status,
     topics,
     rounds,
+    selectedTopicId,
     selectedTopic,
+    selectedQuestionId,
     selectedQuestion,
+    selectedRoundIndex,
     selectedRound,
+    selectedQuizName,
   }
 })

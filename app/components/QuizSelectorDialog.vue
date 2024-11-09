@@ -16,14 +16,14 @@ const { data, execute, status } = await useAsyncData(
   },
 )
 
-async function updateQuiz() {
-  if (currentGameStore.data?.quiz.id === selectedQuizId.value) {
+async function selectQuiz() {
+  if (currentGameStore.data?.quiz === selectedQuizId.value) {
     return closeDialog()
   }
 
   clearNuxtData('game_data')
 
-  await currentGameStore.updateCurrentGame({
+  await currentGameStore.updateCurrentGame('select_quiz', {
     quiz: selectedQuizId.value,
     topic: null,
     question: null,
@@ -42,7 +42,7 @@ const selectedQuizId = ref()
 watch(visible, (newValue) => {
   if (!newValue) return
 
-  selectedQuizId.value = currentGameStore.data?.quiz?.id
+  selectedQuizId.value = currentGameStore.data?.quiz
 
   execute()
 })
@@ -59,7 +59,7 @@ watch(visible, (newValue) => {
     }"
     :draggable="false"
     :closable="false"
-    :close-on-escape="!currentGameStore.isUpdating"
+    :close-on-escape="!currentGameStore.isUpdating.has('select_quiz')"
   >
     <div class="mb-6">
       <Skeleton v-if="status === 'pending'" height="2.44rem" />
@@ -72,7 +72,7 @@ watch(visible, (newValue) => {
         option-label="name"
         placeholder="Select a Country"
         class="w-full"
-        :disabled="currentGameStore.isUpdating"
+        :disabled="currentGameStore.isUpdating.has('select_quiz')"
       />
     </div>
 
@@ -82,7 +82,7 @@ watch(visible, (newValue) => {
         label="Zrušiť"
         severity="secondary"
         variant="outlined"
-        :disabled="currentGameStore.isUpdating"
+        :disabled="currentGameStore.isUpdating.has('select_quiz')"
         size="small"
         @click="closeDialog"
       ></Button>
@@ -90,10 +90,12 @@ watch(visible, (newValue) => {
       <Button
         type="button"
         label="Uložiť"
-        :loading="currentGameStore.isUpdating"
-        :disabled="currentGameStore.isUpdating || status === 'pending'"
+        :loading="currentGameStore.isUpdating.has('select_quiz')"
+        :disabled="
+          currentGameStore.isUpdating.has('select_quiz') || status === 'pending'
+        "
         size="small"
-        @click="updateQuiz"
+        @click="selectQuiz"
       ></Button>
     </div>
   </Dialog>
