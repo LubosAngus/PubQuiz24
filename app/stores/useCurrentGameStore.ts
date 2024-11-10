@@ -2,9 +2,11 @@ import type { CurrentGameEntity } from '~~/types/directus'
 
 export const useCurrentGameStore = defineStore('currentGame', () => {
   const { $directusWebsocket } = useNuxtApp()
+  const gameDataStore = useGameDataStore()
   const data = ref<CurrentGameEntity>()
   const isInitialized = ref(false)
-  const isUpdating = ref(new Set(['initial_request'])) as Ref<Set<string>>
+  const isUpdating = ref(new Set()) as Ref<Set<string>>
+  const fieldsToFetch = ['quiz', 'topic', 'question', 'round_index', 'state']
 
   const waitForInitialization = () => {
     return new Promise((resolve) => {
@@ -28,29 +30,35 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
     try {
       await $directusWebsocket.connect()
 
-      $directusWebsocket.onWebSocket('message', (message) => {
-        if (isUpdating.value.has(message.uid)) {
-          isUpdating.value.delete(message.uid)
-        } else {
-          console.warn(`"${message.uid}" is not in updating set.`)
+      $directusWebsocket.onWebSocket('message', async (message) => {
+        const isSubscription = message.uid === 'current_game_subscription'
+        const messageData = isSubscription ? message.data[0] : message.data
+        const shouldRefreshData = data.value?.quiz !== messageData.quiz
+
+        data.value = messageData
+
+        if (shouldRefreshData) {
+          await gameDataStore.refreshData()
         }
 
-        data.value = message.data
+        if (!isInitialized.value) {
+          isInitialized.value = true
+        }
+
+        if (!isSubscription && isUpdating.value.has(message.uid)) {
+          isUpdating.value.delete(message.uid)
+        }
       })
 
       $directusWebsocket.sendMessage({
-        uid: 'initial_request',
-        type: 'items',
+        uid: 'current_game_subscription',
+        type: 'subscribe',
         collection: 'current_game',
-        action: 'read',
+        action: 'update',
         query: {
-          fields: ['quiz', 'topic', 'question', 'round_index', 'state'],
+          fields: fieldsToFetch,
         },
       })
-
-      if (!isInitialized.value) {
-        isInitialized.value = true
-      }
     } catch (error) {
       console.error('Error initializing subscription:', error)
     }
@@ -71,7 +79,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
       collection: 'current_game',
       action: 'update',
       query: {
-        fields: ['quiz', 'topic', 'question', 'round_index', 'state'],
+        fields: fieldsToFetch,
       },
       data: newData,
     })

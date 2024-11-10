@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const gameDataStore = useGameDataStore()
 const currentGameStore = useCurrentGameStore()
 const visible = defineModel<boolean>()
 const { $directus, $readItems } = useNuxtApp()
@@ -20,8 +21,6 @@ async function selectQuiz() {
   if (currentGameStore.data?.quiz === selectedQuizId.value) {
     return closeDialog()
   }
-
-  clearNuxtData('game_data')
 
   await currentGameStore.updateCurrentGame('select_quiz', {
     quiz: selectedQuizId.value,

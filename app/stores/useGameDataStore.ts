@@ -58,7 +58,6 @@ export const useGameDataStore = defineStore('gameData', () => {
     },
     {
       immediate: !!currentGameStore.data,
-      watch: [() => currentGameStore.data?.quiz],
     },
   )
 

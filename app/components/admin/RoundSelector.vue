@@ -35,7 +35,7 @@ function selectRound(round) {
         size="small"
         @click="selectRound(round)"
       >
-        <div class="flex w-full gap-2 leading-5">
+        <div class="flex w-full gap-2 text-sm leading-4">
           <div class="font-bold italic text-slate-500">
             #{{ round.index + 1 }}
           </div>

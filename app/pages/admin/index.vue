@@ -12,7 +12,7 @@ const isSomethingLoading = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-row p-6 h-[100dvh]">
+  <div class="flex flex-row h-[100dvh]">
     <div class="fixed top-1 left-1">
       <ProgressSpinner
         v-if="isSomethingLoading"
@@ -25,20 +25,22 @@ const isSomethingLoading = computed(() => {
       />
     </div>
 
-    <div class="basis-56 grow-0 shrink-0 flex flex-col">
-      <QuizSelector />
+    <div class="basis-64 grow-0 shrink-0 flex flex-col p-6 overflow-auto">
+      <AdminQuizSelector />
       <Divider />
-      <RoundSelector />
+      <AdminRoundSelector />
       <div class="mt-auto">
         <Divider />
       </div>
+      <AdminSpotify />
+      <Divider />
       <AdminQuickActions />
     </div>
 
-    <Divider layout="vertical" />
+    <Divider layout="vertical" class="[&&]:m-0" />
 
-    <div class="flex-auto overflow-auto">
-      <TopicAndQuestionSelector />
+    <div class="flex-auto overflow-auto p-6">
+      <AdminTopicAndQuestionSelector />
     </div>
   </div>
 </template>

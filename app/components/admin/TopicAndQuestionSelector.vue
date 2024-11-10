@@ -26,7 +26,7 @@ function isQuestionSelected(question) {
     <Message severity="info">Vyber kolo</Message>
   </div>
 
-  <div v-else class="flex flex-col gap-2">
+  <div v-else class="flex flex-col gap-8">
     <div
       v-for="(topic, index) in gameDataStore.selectedRound?.topics"
       :key="topic.id"
@@ -51,17 +51,17 @@ function isQuestionSelected(question) {
         </div>
       </Button>
 
-      <div class="flex flex-col gap-2 pl-2">
+      <div class="flex flex-col gap-2 pl-4">
         <template v-for="question in topic.questions" :key="question.id">
           <Button
             severity="contrast"
             type="button"
-            class="w-fit text-left leading-5"
+            class="w-fill text-left leading-5"
             :variant="!isQuestionSelected(question) ? 'outlined' : undefined"
             size="small"
             @click="selectQuestion(topic, question)"
           >
-            <div class="flex flex-col items-start">
+            <div class="w-full flex flex-col items-start">
               <div
                 class="font-bold flex gap-2"
                 :class="{
