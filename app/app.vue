@@ -1,7 +1,17 @@
+<script setup lang="ts">
+const route = useRoute()
+const routeName = route.name?.toString() || ''
+const layoutName = ref()
+
+if (routeName === 'index' || routeName.startsWith('game-')) {
+  layoutName.value = 'game'
+}
+</script>
+
 <template>
   <Toast />
 
-  <NuxtLayout>
+  <NuxtLayout :name="layoutName">
     <NuxtPage />
   </NuxtLayout>
 </template>
