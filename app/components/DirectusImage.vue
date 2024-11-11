@@ -4,26 +4,14 @@ const props = defineProps<{
   sizes: string
 }>()
 
-const { $DIRECTUS_URL } = useNuxtApp()
-
-const baseImage = `${$DIRECTUS_URL}/assets/${props.imageId}`
-
-function getImageByKey(key: number) {
-  return `${baseImage}?key=${key}w`
-}
-
-const sizesToGenerate = [2880, 2400, 1920, 1440, 960, 480, 240, 120]
-const srcset = computed(() => {
-  const result = []
-
-  for (const size of sizesToGenerate) {
-    result.push(`${getImageByKey(size)} ${size}w`)
-  }
-
-  return result.join(', ')
-})
+const directusImage = getDirectusImage(props.imageId)
 </script>
 
 <template>
-  <img :src="getImageByKey(960)" alt="" :srcset="srcset" :sizes="props.sizes" />
+  <img
+    :src="directusImage.getSrcByKey(960)"
+    alt=""
+    :srcset="directusImage.srcset"
+    :sizes="props.sizes"
+  />
 </template>
