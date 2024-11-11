@@ -23,7 +23,7 @@ const stateItems = [
     severity: 'help',
   },
   {
-    key: 'ladderboard',
+    key: 'leaderboard',
     icon: 'ranking-star',
     severity: 'warn',
   },

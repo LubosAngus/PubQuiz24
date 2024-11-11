@@ -61,9 +61,9 @@ function isQuestionSelected(question) {
             size="small"
             @click="selectQuestion(topic, question)"
           >
-            <div class="w-full flex flex-col items-start">
+            <div class="w-full flex flex-col items-start gap-1">
               <div
-                class="font-bold flex gap-2"
+                class="font-bold flex gap-2 leading-4"
                 :class="{
                   'text-slate-500': !isQuestionSelected(question),
                   'text-slate-950': isQuestionSelected(question),
@@ -95,10 +95,11 @@ function isQuestionSelected(question) {
                   />
                 </div>
 
-                <span v-html="question.question" />
+                <div v-html="question.question" />
               </div>
+
               <div
-                class="font-semibold italic text-xs flex gap-2"
+                class="font-semibold italic text-xs flex gap-2 leading-3"
                 :class="{
                   'text-slate-600': !isQuestionSelected(question),
                   'text-slate-400': isQuestionSelected(question),
@@ -130,7 +131,7 @@ function isQuestionSelected(question) {
                   />
                 </div>
 
-                <span v-html="question.answer" />
+                <div v-html="question.answer" />
               </div>
             </div>
           </Button>

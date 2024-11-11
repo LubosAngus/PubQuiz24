@@ -44,3 +44,14 @@ const isSomethingLoading = computed(() => {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+body {
+  font-family: 'Inter', serif;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--p-surface-950);
+    color: var(--p-surface-0);
+  }
+}
+</style>
