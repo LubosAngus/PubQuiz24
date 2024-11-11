@@ -5,8 +5,8 @@ definePageMeta({
   pageTransition: {
     onLeave(el, done) {
       gsap.to(el, {
-        duration: 0.75,
-        translateY: 100,
+        duration: 0.5,
+        translateY: 50,
         opacity: 0,
         onComplete: done,
         ease: 'power2.inOut',
@@ -14,17 +14,20 @@ definePageMeta({
     },
   },
 })
+
+const assetLoaderStore = useAssetLoaderStore()
 </script>
 
 <template>
   <div class="absolute top-0 left-0 h-full w-full grid place-items-center">
-    <ProgressSpinner
-      :style="{
-        width: '3rem',
-        height: '3rem',
-      }"
-      stroke-width="8"
-      animation-duration=".5s"
-    />
+    <div class="flex flex-col items-cetner text-center gap-3">
+      <h1 class="uppercase text-6xl font-bold tracking-wider">
+        {{ assetLoaderStore.loadingProgressPercent }}%
+      </h1>
+
+      <h2 class="uppercase text-sm font-medium text-slate-500">
+        {{ assetLoaderStore.loadingText }}
+      </h2>
+    </div>
   </div>
 </template>

@@ -26,19 +26,28 @@ export const useFrontendRedirectsStore = defineStore(
       return navigateMap.get(state)
     })
 
-    onMounted(() => {
-      watch(currentGameStore, () => {
-        if (!currentRedirectTo.value) {
-          return
-        }
+    function startWatchingForRedirects() {
+      watch(
+        currentGameStore,
+        () => {
+          if (!currentRedirectTo.value) {
+            return
+          }
 
-        navigateTo(currentRedirectTo.value)
-      })
-    })
+          navigateTo(currentRedirectTo.value, {
+            replace: true,
+          })
+        },
+        {
+          immediate: true,
+        },
+      )
+    }
 
     return {
       navigateMap,
       currentRedirectTo,
+      startWatchingForRedirects,
     }
   },
 )

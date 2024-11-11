@@ -1,17 +1,34 @@
 <script setup lang="ts">
+import gsap from 'gsap'
+
 definePageMeta({
   pageTransition: {
-    name: 'custom-flip',
-    mode: 'out-in',
-    onBeforeEnter: (el) => {
-      console.log('Before enter...')
+    onEnter(el, done) {
+      gsap.from(el, {
+        duration: 0.5,
+        translateY: -50,
+        opacity: 0,
+        onComplete: done,
+        ease: 'power2.inOut',
+      })
     },
-    onEnter: (el, done) => {},
-    onAfterEnter: (el) => {},
+    onLeave(el, done) {
+      gsap.to(el, {
+        duration: 0.5,
+        translateY: 50,
+        opacity: 0,
+        onComplete: done,
+        ease: 'power2.inOut',
+      })
+    },
   },
 })
+
+const route = useRoute()
 </script>
 
 <template>
-  <h1 class="text-xl font-bold">countdown</h1>
+  <div class="absolute top-0 left-0 h-full w-full grid place-items-center">
+    <h1 class="text-xl font-bold">{{ route.name }}</h1>
+  </div>
 </template>

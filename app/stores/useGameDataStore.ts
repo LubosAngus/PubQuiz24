@@ -106,8 +106,30 @@ export const useGameDataStore = defineStore('gameData', () => {
     }[]
   >
 
+  const questions = computed(() => {
+    if (!topics.value?.length) {
+      return
+    }
+
+    return topics.value.map((topic) => topic.questions).flat()
+  }) as ComputedRef<QuestionsEntity[] | undefined>
+
   const selectedQuizName = computed(() => {
     return data.value?.name
+  })
+
+  const selectedRoundIndex = computed(() => {
+    return currentGameStore.data?.round_index
+  })
+
+  const selectedRound = computed(() => {
+    if (isNullOrUndefined(selectedRoundIndex.value)) {
+      return
+    }
+
+    return rounds.value?.find((round) => {
+      return round.index === selectedRoundIndex.value
+    })
   })
 
   const selectedTopicId = computed(() => {
@@ -138,32 +160,38 @@ export const useGameDataStore = defineStore('gameData', () => {
     })
   }) as ComputedRef<QuestionsEntity | undefined>
 
-  const selectedRoundIndex = computed(() => {
-    return currentGameStore.data?.round_index
-  })
+  const waitForDataToLoad = () => {
+    return new Promise((resolve) => {
+      if (data.value) {
+        return resolve(true)
+      }
 
-  const selectedRound = computed(() => {
-    if (isNullOrUndefined(selectedRoundIndex.value)) {
-      return
-    }
+      const unwatch = watch(data, async (value) => {
+        if (!value) return
 
-    return rounds.value?.find((round) => {
-      return round.index === selectedRoundIndex.value
+        // ? next tick in case not all computed are populated?
+        // await nextTick()
+
+        unwatch()
+        resolve(true)
+      })
     })
-  })
+  }
 
   return {
     data,
     refreshData,
     status,
-    topics,
     rounds,
+    topics,
+    questions,
+    selectedQuizName,
+    selectedRoundIndex,
+    selectedRound,
     selectedTopicId,
     selectedTopic,
     selectedQuestionId,
     selectedQuestion,
-    selectedRoundIndex,
-    selectedRound,
-    selectedQuizName,
+    waitForDataToLoad,
   }
 })

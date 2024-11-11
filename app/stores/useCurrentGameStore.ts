@@ -8,24 +8,6 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
   const isUpdating = ref(new Set()) as Ref<Set<string>>
   const fieldsToFetch = ['quiz', 'topic', 'question', 'round_index', 'state']
 
-  const waitForInitialization = () => {
-    return new Promise((resolve) => {
-      if (isInitialized.value) {
-        return resolve(true)
-      }
-
-      watch(
-        isInitialized,
-        (value) => {
-          if (!value) return
-
-          resolve(true)
-        },
-        { once: true },
-      )
-    })
-  }
-
   const initWebsocket = async () => {
     try {
       await $directusWebsocket.connect()
@@ -103,7 +85,6 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
   return {
     data,
     isInitialized,
-    waitForInitialization,
     updateCurrentGame,
     isUpdating,
   }
