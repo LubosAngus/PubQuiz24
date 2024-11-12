@@ -8,11 +8,6 @@ const stateItems = [
     severity: 'info',
   },
   {
-    key: 'gameplay',
-    icon: 'person-chalkboard',
-    severity: 'success',
-  },
-  {
     key: 'countdown',
     icon: 'hourglass-half',
     severity: 'danger',
@@ -34,8 +29,14 @@ function isStateSelected(state: string) {
 }
 
 function selectState(state: string) {
+  let newState = state
+
+  if (isStateSelected(state)) {
+    newState = 'gameplay'
+  }
+
   currentGameStore.updateCurrentGame('state_select', {
-    state,
+    state: newState,
   })
 }
 </script>
