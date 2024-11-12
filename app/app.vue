@@ -18,6 +18,15 @@ if (routeName === 'index' || routeName.startsWith('game-')) {
 
 <style lang="scss">
 @layer normalize, primevue;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .q-absolute-full {
+    @apply absolute top-0 left-0 h-full w-full;
+  }
+}
 
 @import 'normalize.css' layer(normalize-reset);
 @import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -28,12 +37,7 @@ body {
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
-
-  background-color: var(--p-surface-0);
-  color: var(--p-surface-950);
-
-  .font-alternative {
-    font-family: 'Stick No Bills', serif;
-  }
+  background-color: #000;
+  color: var(--p-surface-0);
 }
 </style>

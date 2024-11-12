@@ -14,3 +14,10 @@ onMounted(async () => {
     <slot />
   </div>
 </template>
+
+<style lang="scss">
+body {
+  background-color: var(--p-surface-0);
+  color: var(--p-surface-950);
+}
+</style>

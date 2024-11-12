@@ -28,7 +28,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <div class="absolute top-0 left-0 h-full w-full grid place-items-center">
+  <div class="q-absolute-full grid place-items-center">
     <h1 class="text-xl font-bold">{{ route.name }}</h1>
   </div>
 </template>

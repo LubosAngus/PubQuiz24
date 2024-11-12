@@ -24,11 +24,11 @@ definePageMeta({
   },
 })
 
-const route = useRoute()
+const gameDataStore = useGameDataStore()
 </script>
 
 <template>
-  <div class="absolute top-0 left-0 h-full w-full grid place-items-center">
-    <h1 class="text-xl font-bold">{{ route.name }}</h1>
+  <div class="q-absolute-full grid place-items-center">
+    {{ gameDataStore.selectedQuizName }}
   </div>
 </template>

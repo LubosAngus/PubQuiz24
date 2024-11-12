@@ -12,7 +12,7 @@ const isSomethingLoading = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-row h-[100dvh]">
+  <div class="flex h-[100dvh] flex-col sm:flex-row">
     <div class="fixed top-1 left-1">
       <ProgressSpinner
         v-if="isSomethingLoading"
@@ -37,7 +37,9 @@ const isSomethingLoading = computed(() => {
       <AdminQuickActions />
     </div>
 
-    <Divider layout="vertical" class="[&&]:m-0" />
+    <div class="hidden sm:block">
+      <Divider layout="vertical" class="[&&]:m-0" />
+    </div>
 
     <div class="flex-auto overflow-auto p-6">
       <AdminTopicAndQuestionSelector />
@@ -48,10 +50,7 @@ const isSomethingLoading = computed(() => {
 <style lang="scss">
 body {
   font-family: 'Inter', serif;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--p-surface-950);
-    color: var(--p-surface-0);
-  }
+  background-color: var(--p-surface-950);
+  color: var(--p-surface-0);
 }
 </style>

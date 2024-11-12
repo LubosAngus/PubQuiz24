@@ -146,6 +146,16 @@ export const useGameDataStore = defineStore('gameData', () => {
     })
   }) as ComputedRef<TopicsEntity | undefined>
 
+  function getTopicById(topicId: string) {
+    if (!topics.value) {
+      return
+    }
+
+    return topics.value.find((topic) => {
+      return topic.id === topicId
+    })
+  }
+
   const selectedQuestionId = computed(() => {
     return currentGameStore.data?.question
   })
@@ -159,6 +169,16 @@ export const useGameDataStore = defineStore('gameData', () => {
       return question.id === selectedQuestionId.value
     })
   }) as ComputedRef<QuestionsEntity | undefined>
+
+  function getQuestionById(questionId: string) {
+    if (!questions.value) {
+      return
+    }
+
+    return questions.value.find((question) => {
+      return question.id === questionId
+    })
+  }
 
   const waitForDataToLoad = () => {
     return new Promise((resolve) => {
@@ -190,8 +210,10 @@ export const useGameDataStore = defineStore('gameData', () => {
     selectedRound,
     selectedTopicId,
     selectedTopic,
+    getTopicById,
     selectedQuestionId,
     selectedQuestion,
+    getQuestionById,
     waitForDataToLoad,
   }
 })
