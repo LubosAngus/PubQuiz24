@@ -34,7 +34,8 @@ export const useAssetLoaderStore = defineStore('assetLoader', () => {
 
     const topicsImagesIds = gameDataStore.topics.reduce((acc, topic) => {
       if (topic.background_image) {
-        acc.push(topic.background_image)
+        const imageSrc = getDirectusImageSrc(topic.background_image, 2880)
+        acc.push(imageSrc)
       }
 
       return acc
@@ -42,27 +43,21 @@ export const useAssetLoaderStore = defineStore('assetLoader', () => {
 
     const questionsImagesIds = gameDataStore.questions.reduce(
       (acc, question) => {
-        if (question.question_image) acc.push(question.question_image)
-        if (question.answer_image) acc.push(question.answer_image)
+        if (question.question_image) {
+          const imageSrc = getDirectusImageSrc(question.question_image, 1440)
+          acc.push(imageSrc)
+        }
+        if (question.answer_image) {
+          const imageSrc = getDirectusImageSrc(question.answer_image, 1440)
+          acc.push(imageSrc)
+        }
 
         return acc
       },
       [] as string[],
     )
 
-    const allImagesIds = [...topicsImagesIds, ...questionsImagesIds]
-
-    const allImagesSrcs = allImagesIds.reduce((acc, image) => {
-      const { srcsetRaw } = getDirectusImage(image)
-
-      for (const item of srcsetRaw) {
-        acc.push(item.src)
-      }
-
-      return acc
-    }, [] as string[])
-
-    return allImagesSrcs
+    return [...topicsImagesIds, ...questionsImagesIds]
   })
 
   const videosToLoad = computed(() => {
@@ -190,8 +185,6 @@ export const useAssetLoaderStore = defineStore('assetLoader', () => {
 
         break
       }
-
-      console.log(sleepFor)
 
       await sleep(sleepFor)
 

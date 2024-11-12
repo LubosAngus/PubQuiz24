@@ -1,17 +1,14 @@
 <script setup lang="ts">
+import type { SizeKey } from '~/utils/getDirectusImageSrc'
+
 const props = defineProps<{
   imageId: string
-  sizes: string
+  sizeKey: SizeKey
 }>()
 
-const directusImage = getDirectusImage(props.imageId)
+const directusImageSrc = getDirectusImageSrc(props.imageId, props.sizeKey)
 </script>
 
 <template>
-  <img
-    :src="directusImage.getSrcByKey(960)"
-    alt=""
-    :srcset="directusImage.srcset"
-    :sizes="props.sizes"
-  />
+  <img :src="directusImageSrc" alt="" />
 </template>
