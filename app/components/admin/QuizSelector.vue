@@ -1,11 +1,14 @@
 <script setup lang="ts">
 const gameDataStore = useGameDataStore()
+const currentGameStore = useCurrentGameStore()
 const isDialogVisible = ref(false)
 
 async function refreshData() {
   clearNuxtData('game_data')
 
-  gameDataStore.refreshData()
+  currentGameStore.updateCurrentGame('refresh_data', {
+    action_pressed: 'refresh_data',
+  })
 }
 
 function openDialog() {

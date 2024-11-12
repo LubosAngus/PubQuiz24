@@ -8,22 +8,63 @@ definePageMeta({
 
 const route = useRoute()
 const gameDataStore = useGameDataStore()
-const question = gameDataStore.getQuestionById(route.params.id as string)
+const question = computed(() => {
+  return gameDataStore.getQuestionById(route.params.id as string)!
+})
 
-const hasImage = !!question?.question_image
-const hasVideo = !!question?.question_video
+const hasImage = !!question.value?.question_image
+const hasVideo = !!question.value?.question_video
+
+const questionWordCount = computed(() => {
+  const strippedText = stripHtmlTags(question.value.question!)
+  return countWords(strippedText)
+})
+const questionAdditionalClasses = computed(() => {
+  const wordCountTextSizeMap = {
+    10: 'text-8xl',
+    25: 'text-7xl',
+    40: 'text-6xl',
+    80: 'text-5xl',
+    120: 'text-4xl',
+  }
+
+  let finalTextSizeClass = 'text-3xl'
+  for (const [value, textSizeClass] of Object.entries(wordCountTextSizeMap)) {
+    if (questionWordCount.value > parseInt(value)) {
+      continue
+    }
+
+    finalTextSizeClass = textSizeClass
+
+    break
+  }
+
+  return [finalTextSizeClass]
+})
 </script>
 
 <template>
-  <div class="q-absolute-full grid place-items-center text-center py-10 px-20">
-    <div class="flex flex-col gap-4">
-      <DirectusImage
-        v-if="hasImage"
-        :size-key="1440"
-        :image-id="question?.question_image"
-      />
+  <div class="q-absolute-full grid place-items-center text-center p-20">
+    <div class="flex flex-col gap-4 h-full w-full justify-center">
+      <div v-if="hasImage" class="flex-1 relative">
+        <DirectusImage
+          :size-key="2880"
+          :image-id="question?.question_image"
+          class="w-full h-full absolute object-contain"
+        />
+      </div>
 
-      <h1 v-html="question?.question" />
+      <div
+        class="font-medium max-w-6xl self-center"
+        :class="questionAdditionalClasses"
+        v-html="question?.question"
+      />
     </div>
   </div>
 </template>
+
+<style lang="scss">
+small {
+  font-size: 60%;
+}
+</style>

@@ -32,12 +32,16 @@ if (routeName === 'index' || routeName.startsWith('game-')) {
 @import '@fortawesome/fontawesome-svg-core/styles.css';
 
 body {
-  font-family: 'Tomorrow', sans-serif;
+  font-family: 'Alegreya', serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
   background-color: #000;
   color: var(--p-surface-0);
+
+  .font-secondary {
+    font-family: 'Tomorrow', serif;
+  }
 }
 </style>

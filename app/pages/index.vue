@@ -19,15 +19,36 @@ const assetLoaderStore = useAssetLoaderStore()
 </script>
 
 <template>
-  <div class="q-absolute-full grid place-items-center">
-    <div class="flex flex-col items-cetner text-center gap-3">
-      <h1 class="uppercase text-9xl font-bold tracking-wider">
-        {{ assetLoaderStore.loadingProgressPercent }}%
-      </h1>
+  <div class="q-absolute-full">
+    <div class="q-absolute-full grid place-items-center">
+      <div
+        class="flex flex-col items-cetner text-center gap-3 font-secondary text-black"
+      >
+        <h1 class="uppercase text-9xl font-bold tracking-wider">
+          {{ assetLoaderStore.loadingProgressPercent }}%
+        </h1>
 
-      <h2 class="uppercase text-sm font-medium text-slate-500">
-        {{ assetLoaderStore.loadingText }}
-      </h2>
+        <h2 class="uppercase text-lg font-medium text-slate-500">
+          {{ assetLoaderStore.loadingText }}
+        </h2>
+      </div>
+    </div>
+
+    <div
+      class="q-absolute-full grid place-items-center text-slate-50 bg-black transition-all"
+      :style="{
+        clipPath: `polygon(${assetLoaderStore.loadingProgressPercent}% 0%, 100% 0%, 100% 100%, ${assetLoaderStore.loadingProgressPercent}% 100%)`,
+      }"
+    >
+      <div class="flex flex-col items-cetner text-center gap-3 font-secondary">
+        <h1 class="uppercase text-9xl font-bold tracking-wider">
+          {{ assetLoaderStore.loadingProgressPercent }}%
+        </h1>
+
+        <h2 class="uppercase text-lg font-medium text-slate-500">
+          {{ assetLoaderStore.loadingText }}
+        </h2>
+      </div>
     </div>
   </div>
 </template>

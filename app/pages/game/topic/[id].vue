@@ -40,7 +40,9 @@ definePageMeta({
 
 const route = useRoute()
 const gameDataStore = useGameDataStore()
-const topic = gameDataStore.getTopicById(route.params.id as string)!
+const topic = computed(() => {
+  return gameDataStore.getTopicById(route.params.id as string)!
+})
 
 const totalContentItems = 10
 function getContentClipPath(index: number, total: number) {
@@ -50,7 +52,7 @@ function getContentClipPath(index: number, total: number) {
   return `polygon(${startX}% 0%, ${endX}% 0%, ${endX}% 100%, ${startX}% 100%)`
 }
 
-const fontSize = useDynamicFontSize(topic.name!)
+const fontSize = useDynamicFontSize(topic.value.name!)
 </script>
 
 <template>
@@ -82,7 +84,7 @@ const fontSize = useDynamicFontSize(topic.name!)
         </div>
 
         <h1
-          class="js-text font-bold z-10 text-surface-0 text-center q-absolute-full grid place-items-center will-change-[transform,opacity]"
+          class="js-text font-bold font-secondary z-10 text-surface-0 text-center q-absolute-full grid place-items-center will-change-[transform,opacity]"
           :style="{
             fontSize: `${fontSize}px`,
             lineHeight: 1,

@@ -4,6 +4,7 @@ const frontendRedirectsStore = useFrontendRedirectsStore()
 
 onMounted(async () => {
   await assetLoaderStore.waitForAssetsToLoad()
+  await sleep(300)
 
   frontendRedirectsStore.startWatchingForRedirects()
 })

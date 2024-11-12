@@ -55,39 +55,4 @@ function selectState(state: string) {
       </Button>
     </template>
   </div>
-
-  <Divider />
-
-  <!-- TODO: these actions -->
-  <div class="grid grid-cols-5 gap-1">
-    <Button
-      type="button"
-      class="aspect-square"
-      severity="secondary"
-      variant="outlined"
-    >
-      <font-awesome-icon :icon="['fas', 'play']" />
-    </Button>
-
-    <Button
-      type="button"
-      class="aspect-square"
-      severity="secondary"
-      variant="outlined"
-    >
-      <font-awesome-icon :icon="['fas', 'expand']" />
-    </Button>
-
-    <div></div>
-    <div></div>
-
-    <Button
-      type="button"
-      class="aspect-square"
-      severity="danger"
-      variant="outlined"
-    >
-      <font-awesome-icon :icon="['fas', 'comment']" />
-    </Button>
-  </div>
 </template>

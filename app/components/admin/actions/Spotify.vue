@@ -24,7 +24,7 @@ function toggleDialog() {
     </template>
 
     <template v-else>
-      <div class="grid grid-cols-6 gap-1 mb-3">
+      <div class="grid grid-cols-5 gap-1 mb-3">
         <Button
           type="button"
           class="aspect-square"
@@ -56,9 +56,11 @@ function toggleDialog() {
           <font-awesome-icon :icon="['fas', 'forward-step']" />
         </Button>
 
+        <div></div>
+
         <Button
           type="button"
-          class="aspect-square col-start-6"
+          class="aspect-square"
           severity="secondary"
           variant="outlined"
           @click="toggleDialog()"
@@ -114,7 +116,7 @@ function toggleDialog() {
   --p-button-primary-background: #1ed760;
   --p-button-primary-border-color: #1ed760;
   --p-button-outlined-primary-color: #1ed760;
-  --p-button-outlined-primary-border-color: #1ed760;
+  --p-button-outlined-primary-border-color: #073517;
   --p-slider-range-background: #1ed760;
   --p-slider-handle-focus-ring-color: #1ed760;
   --p-button-primary-focus-ring-color: #1ed760;

@@ -32,9 +32,16 @@ const isSomethingLoading = computed(() => {
       <div class="mt-auto">
         <Divider />
       </div>
-      <AdminSpotify />
-      <Divider />
-      <AdminQuickActions />
+      <template v-if="gameDataStore.data">
+        <AdminActionsSpotify />
+        <Divider />
+        <AdminActionsState />
+        <Divider />
+        <AdminActionsGame class="mb-3" />
+        <AdminActionsVolumeSlider />
+        <Divider />
+        <AdminActionsAnswer />
+      </template>
     </div>
 
     <div class="hidden sm:block">

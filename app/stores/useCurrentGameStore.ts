@@ -6,7 +6,15 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
   const data = ref<CurrentGameEntity>()
   const isInitialized = ref(false)
   const isUpdating = ref(new Set()) as Ref<Set<string>>
-  const fieldsToFetch = ['quiz', 'topic', 'question', 'round_index', 'state']
+  const fieldsToFetch = [
+    'quiz',
+    'topic',
+    'question',
+    'round_index',
+    'state',
+    'media_volume',
+    'action_pressed',
+  ]
 
   const initWebsocket = async () => {
     try {
@@ -15,9 +23,34 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
       $directusWebsocket.onWebSocket('message', async (message) => {
         const isSubscription = message.uid === 'current_game_subscription'
         const messageData = isSubscription ? message.data[0] : message.data
-        const shouldRefreshData = data.value?.quiz !== messageData.quiz
+        const changedData = {}
 
+        if (data.value) {
+          for (const dataKey of Object.keys(data.value)) {
+            if (data.value[dataKey] !== messageData[dataKey]) {
+              changedData[dataKey] = messageData[dataKey]
+            }
+          }
+
+          // no data has been changed
+          if (!Object.keys(changedData).length) {
+            return
+          }
+        }
+
+        let shouldRefreshData = data.value?.quiz !== messageData.quiz
+        if (messageData.action_pressed !== null) {
+          if (messageData.action_pressed === 'refresh_data') {
+            shouldRefreshData = true
+          }
+        }
+
+        // Assign data from response to current data object
         data.value = messageData
+
+        if (!isSubscription && isUpdating.value.has(message.uid)) {
+          isUpdating.value.delete(message.uid)
+        }
 
         if (shouldRefreshData) {
           await gameDataStore.refreshData()
@@ -27,8 +60,10 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
           isInitialized.value = true
         }
 
-        if (!isSubscription && isUpdating.value.has(message.uid)) {
-          isUpdating.value.delete(message.uid)
+        if (messageData.action_pressed !== null) {
+          updateCurrentGame('reset_action_pressed', {
+            action_pressed: null,
+          })
         }
       })
 
@@ -50,7 +85,8 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
 
   async function updateCurrentGame(uid: string, newData: object) {
     if (isUpdating.value.has(uid)) {
-      throw new Error(`"${uid}" is already pending`)
+      console.warn(`"${uid}" is already pending`)
+      return
     }
 
     isUpdating.value.add(uid)

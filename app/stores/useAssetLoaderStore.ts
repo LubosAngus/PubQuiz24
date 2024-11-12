@@ -44,11 +44,11 @@ export const useAssetLoaderStore = defineStore('assetLoader', () => {
     const questionsImagesIds = gameDataStore.questions.reduce(
       (acc, question) => {
         if (question.question_image) {
-          const imageSrc = getDirectusImageSrc(question.question_image, 1440)
+          const imageSrc = getDirectusImageSrc(question.question_image, 2880)
           acc.push(imageSrc)
         }
         if (question.answer_image) {
-          const imageSrc = getDirectusImageSrc(question.answer_image, 1440)
+          const imageSrc = getDirectusImageSrc(question.answer_image, 2880)
           acc.push(imageSrc)
         }
 
