@@ -56,7 +56,7 @@ const isSomethingLoading = computed(() => {
 
 <style lang="scss">
 body {
-  font-family: 'Inter', serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--p-surface-950);
   color: var(--p-surface-0);
 }

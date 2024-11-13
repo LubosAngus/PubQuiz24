@@ -60,6 +60,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
           isInitialized.value = true
         }
 
+        // TODO: move this to GameActionsStore
         if (messageData.action_pressed !== null) {
           updateCurrentGame('reset_action_pressed', {
             action_pressed: null,
