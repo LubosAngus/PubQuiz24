@@ -1,22 +1,24 @@
 <script setup lang="ts">
+import type { QuestionsEntity, TopicsEntity } from '~~/types/directus'
+
 const gameDataStore = useGameDataStore()
 const currentGameStore = useCurrentGameStore()
 
-function selectTopic(topic) {
+function selectTopic(topic: TopicsEntity) {
   currentGameStore.updateCurrentGame('topic_select', {
     topic: topic.id,
     question: null,
   })
 }
 
-function selectQuestion(topic, question) {
+function selectQuestion(topic: TopicsEntity, question: QuestionsEntity) {
   currentGameStore.updateCurrentGame('question_select', {
     topic: topic.id,
     question: question.id,
   })
 }
 
-function isQuestionSelected(question) {
+function isQuestionSelected(question: QuestionsEntity) {
   return gameDataStore.selectedQuestionId === question.id
 }
 </script>
@@ -44,7 +46,7 @@ function isQuestionSelected(question) {
       >
         <div class="flex w-full gap-2 leading-5">
           <div class="font-bold italic text-slate-500">
-            {{ `${currentGameStore?.data?.round_index + 1}.${index + 1}.` }}
+            {{ `${gameDataStore.selectedRound.index + 1}.${index + 1}.` }}
           </div>
 
           <div class="flex flex-col font-semibold">{{ topic.name }}</div>

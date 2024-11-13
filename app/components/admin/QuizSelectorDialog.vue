@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const gameDataStore = useGameDataStore()
 const currentGameStore = useCurrentGameStore()
 const visible = defineModel<boolean>()
 const { $directus, $readItems } = useNuxtApp()

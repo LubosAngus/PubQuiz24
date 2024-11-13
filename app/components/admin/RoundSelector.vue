@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import type { Round } from '~~/types/directus'
+
 const gameDataStore = useGameDataStore()
 const currentGameStore = useCurrentGameStore()
 
-function isRoundSelected(round) {
+function isRoundSelected(round: Round) {
   return currentGameStore.data?.round_index === round.index
 }
 
-function selectRound(round) {
+function selectRound(round: Round) {
   currentGameStore.updateCurrentGame('round_select', {
     round_index: round.index,
-    topic: round.topics[0].id,
+    topic: round.topics[0]?.id || null,
     question: null,
   })
 }

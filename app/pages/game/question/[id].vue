@@ -12,9 +12,6 @@ const question = computed(() => {
   return gameDataStore.getQuestionById(route.params.id as string)!
 })
 
-const hasImage = !!question.value?.question_image
-const hasVideo = !!question.value?.question_video
-
 const questionWordCount = computed(() => {
   const strippedText = stripHtmlTags(question.value.question!)
   return countWords(strippedText)
@@ -46,7 +43,7 @@ const questionAdditionalClasses = computed(() => {
 <template>
   <div class="q-absolute-full grid place-items-center text-center p-20">
     <div class="flex flex-col gap-4 h-full w-full justify-center">
-      <div v-if="hasImage" class="flex-1 relative">
+      <div v-if="question?.question_image" class="flex-1 relative">
         <DirectusImage
           :size-key="2880"
           :image-id="question?.question_image"

@@ -1,4 +1,4 @@
-import type { QuestionsEntity, TopicsEntity } from '~~/types/directus'
+import type { QuestionsEntity, Round, TopicsEntity } from '~~/types/directus'
 
 function isNullOrUndefined(value: unknown) {
   return value === null || value === undefined
@@ -48,11 +48,9 @@ export const useGameDataStore = defineStore('gameData', () => {
               ],
             },
           ],
-          filter: {
-            id: {
-              _eq: currentGameStore.data?.quiz,
-            },
-          },
+          ...(currentGameStore.data?.quiz
+            ? { filter: { id: { _eq: currentGameStore.data?.quiz } } }
+            : {}),
         }),
       )
     },
@@ -80,10 +78,13 @@ export const useGameDataStore = defineStore('gameData', () => {
   }) as ComputedRef<TopicsEntity[] | undefined>
 
   const rounds = computed(() => {
-    if (!topics.value?.length) return
+    if (!topics.value) return
 
     const ROUND_GROUP_SIZE = 2
-    const rounds = []
+    const rounds: {
+      index: number
+      topics: TopicsEntity[]
+    }[] = []
 
     for (let index = 0; index < topics.value.length; index++) {
       const roundIndex = (index - (index % ROUND_GROUP_SIZE)) / ROUND_GROUP_SIZE
@@ -95,16 +96,11 @@ export const useGameDataStore = defineStore('gameData', () => {
         }
       }
 
-      rounds[roundIndex].topics.push(topics.value[index])
+      rounds[roundIndex].topics.push(topics.value[index]!)
     }
 
     return rounds
-  }) as ComputedRef<
-    {
-      index: number
-      topics: TopicsEntity[]
-    }[]
-  >
+  }) as ComputedRef<Round[]>
 
   const questions = computed(() => {
     if (!topics.value?.length) {
@@ -161,7 +157,10 @@ export const useGameDataStore = defineStore('gameData', () => {
   })
 
   const selectedQuestion = computed(() => {
-    if (isNullOrUndefined(selectedQuestionId.value)) {
+    if (
+      isNullOrUndefined(selectedQuestionId.value) ||
+      !selectedTopic.value?.questions
+    ) {
       return
     }
 
