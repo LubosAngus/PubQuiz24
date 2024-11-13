@@ -10,7 +10,10 @@ export const useGameActionsStore = defineStore('gameActions', () => {
   const { directusWS, connectWebsocket } = useDirectusWebsocketStore()
   const gameDataStore = useGameDataStore()
   const toast = useToast()
-  const data = ref<GameActionsEntity>()
+  const data = ref<GameActionsEntity>({
+    action_pressed: null,
+    media_volume: 100,
+  })
   const isUpdating = ref(new Set()) as Ref<Set<string>>
   const fieldsToFetch: (keyof GameActionsEntity)[] = [
     'action_pressed',
@@ -63,26 +66,32 @@ export const useGameActionsStore = defineStore('gameActions', () => {
           }
         }
 
-        if (isUpdating.value.has(message.uid)) {
-          isUpdating.value.delete(message.uid)
-        }
-
         // no changes has been made
         if (changedData.size === 0) {
+          if (isUpdating.value.has(message.uid)) {
+            isUpdating.value.delete(message.uid)
+          }
+
           return
         }
 
         // Assign data from response to current data object
         data.value = messageData
 
-        if (changedData.get('action_pressed') === 'refresh_data') {
-          await gameDataStore.refreshData()
+        if (isUpdating.value.has(message.uid)) {
+          isUpdating.value.delete(message.uid)
         }
 
         if (messageData.action_pressed !== null) {
           updateGameAction('reset_action_pressed', {
             action_pressed: null,
           })
+        }
+
+        if (changedData.get('action_pressed') === 'refresh_data') {
+          gameDataStore.refreshData()
+        } else if (changedData.get('action_pressed') === 'fullscreen') {
+          enterFullscreen()
         }
       })
 

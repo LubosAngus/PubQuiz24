@@ -50,5 +50,7 @@ const assetLoaderStore = useAssetLoaderStore()
         </h2>
       </div>
     </div>
+
+    <!-- TODO: pridaj tu tlacidlo po nacitani na hranie (to zabezpeci ze budem moct javascriptom interagovat so strankou) zaroven https://github.com/richtr/NoSleep.js -->
   </div>
 </template>

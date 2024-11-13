@@ -8,6 +8,7 @@ definePageMeta({
 
 const route = useRoute()
 const gameDataStore = useGameDataStore()
+
 const question = computed(() => {
   return gameDataStore.getQuestionById(route.params.id as string)!
 })
@@ -16,6 +17,7 @@ const questionWordCount = computed(() => {
   const strippedText = stripHtmlTags(question.value.question!)
   return countWords(strippedText)
 })
+
 const questionAdditionalClasses = computed(() => {
   const wordCountTextSizeMap = {
     10: 'text-8xl',
@@ -51,7 +53,12 @@ const questionAdditionalClasses = computed(() => {
         />
       </div>
 
+      <div v-if="question?.question_audio" class="relative mb-10">
+        <GameQuestionAudio :question="question" />
+      </div>
+
       <div
+        v-if="question?.question"
         class="font-medium max-w-6xl self-center"
         :class="questionAdditionalClasses"
         v-html="question?.question"

@@ -66,20 +66,24 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
           }
         }
 
-        if (isUpdating.value.has(message.uid)) {
-          isUpdating.value.delete(message.uid)
-        }
-
         // no changes has been made
         if (changedData.size === 0) {
+          if (isUpdating.value.has(message.uid)) {
+            isUpdating.value.delete(message.uid)
+          }
+
           return
         }
 
         // Assign data from response to current data object
         data.value = messageData
 
+        if (isUpdating.value.has(message.uid)) {
+          isUpdating.value.delete(message.uid)
+        }
+
         if (changedData.has('quiz')) {
-          await gameDataStore.refreshData()
+          gameDataStore.refreshData()
         }
       })
 

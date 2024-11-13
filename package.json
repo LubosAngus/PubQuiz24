@@ -23,6 +23,7 @@
     "@pinia/nuxt": "^0.7.0",
     "@primevue/themes": "^4.2.0",
     "@spotify/web-api-ts-sdk": "^1.2.0",
+    "audiomotion-analyzer": "^4.5.0",
     "gsap": "^3.12.5",
     "normalize.css": "^8.0.1",
     "nuxt": "^3.13.2",

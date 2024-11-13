@@ -6,6 +6,8 @@ const layoutName = ref()
 if (routeName === 'index' || routeName.startsWith('game-')) {
   layoutName.value = 'game'
 }
+
+useGameActionsStore()
 </script>
 
 <template>

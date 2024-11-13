@@ -10,7 +10,6 @@ export type Round = {
 
 export type CurrentGameEntity = {
   date_updated: string | null
-  id: number
   question: string | null
   quiz: string | null
   round_index: number | null
@@ -28,7 +27,6 @@ export type GameActionsEntity = {
     | 'show_anser'
     | 'refresh_data'
     | null
-  id: number
   media_volume: number
 }
 
