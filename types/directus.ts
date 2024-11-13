@@ -6,8 +6,10 @@
  */
 
 export type CurrentGameEntity = {
+  action_pressed: string | null
   date_updated: string | null
   id: number
+  media_volume: number
   question: string | QuestionsEntity | null
   quiz: string | QuizesEntity | null
   round_index: number | null
