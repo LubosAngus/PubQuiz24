@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const gameDataStore = useGameDataStore()
-const currentGameStore = useCurrentGameStore()
+const gameActionsStore = useGameActionsStore()
 const isDialogVisible = ref(false)
 
 async function refreshData() {
   clearNuxtData('game_data')
 
-  currentGameStore.updateCurrentGame('refresh_data', {
+  gameActionsStore.updateGameAction('quiz_selector_refresh_data', {
     action_pressed: 'refresh_data',
   })
 }

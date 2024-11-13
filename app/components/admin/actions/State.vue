@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import type { CurrentGameEntity } from '~~/types/directus'
+
 const currentGameStore = useCurrentGameStore()
 
-const stateItems = [
+const stateItems: {
+  key: CurrentGameEntity['state']
+  icon: string
+  severity: string
+}[] = [
   {
     key: 'logo',
     icon: 'house',
@@ -24,11 +30,11 @@ const stateItems = [
   },
 ]
 
-function isStateSelected(state: string) {
+function isStateSelected(state: CurrentGameEntity['state']) {
   return currentGameStore?.data?.state === state
 }
 
-function selectState(state: string) {
+function selectState(state: CurrentGameEntity['state']) {
   let newState = state
 
   if (isStateSelected(state)) {

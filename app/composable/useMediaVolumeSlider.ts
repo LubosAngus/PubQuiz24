@@ -1,7 +1,7 @@
 export default function () {
-  const currentGameStore = useCurrentGameStore()
+  const gameActionsStore = useGameActionsStore()
 
-  const volume = ref(currentGameStore.data?.media_volume || 100)
+  const volume = ref(gameActionsStore.data?.media_volume || 100)
   const isVolumeChanging = ref(false)
 
   async function changeVolume() {
@@ -12,7 +12,7 @@ export default function () {
     const volumeToChange = volume.value
 
     isVolumeChanging.value = true
-    await currentGameStore.updateCurrentGame('volume_change', {
+    await gameActionsStore.updateGameAction('volume_change', {
       media_volume: volumeToChange,
     })
 

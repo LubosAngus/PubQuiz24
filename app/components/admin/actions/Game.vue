@@ -1,6 +1,13 @@
 <script setup lang="ts">
-const currentGameStore = useCurrentGameStore()
-const actionItems = [
+import type { GameActionsEntity } from '~~/types/directus'
+
+const gameActionsStore = useGameActionsStore()
+
+const actionItems: ({
+  key: GameActionsEntity['action_pressed']
+  icon: string
+  severity: string
+} | null)[] = [
   {
     key: 'play',
     icon: 'play',
@@ -16,9 +23,7 @@ const actionItems = [
     icon: 'forward-step',
     severity: 'success',
   },
-  {
-    key: '_BLANK',
-  },
+  null,
   {
     // TODO: on fullscreen, don't forget to block sleep
     key: 'fullscreen',
@@ -27,8 +32,8 @@ const actionItems = [
   },
 ]
 
-function selectGameAction(gameAction: string) {
-  currentGameStore.updateCurrentGame('game_action', {
+function selectGameAction(gameAction: GameActionsEntity['action_pressed']) {
+  gameActionsStore.updateGameAction('game_action', {
     action_pressed: gameAction,
   })
 }
@@ -36,8 +41,11 @@ function selectGameAction(gameAction: string) {
 
 <template>
   <div class="grid grid-cols-5 gap-1">
-    <template v-for="item in actionItems" :key="item.key">
-      <div v-if="item.key === '_BLANK'" />
+    <template
+      v-for="item in actionItems"
+      :key="item ? item.key : Math.random()"
+    >
+      <div v-if="!item" />
 
       <Button
         v-else

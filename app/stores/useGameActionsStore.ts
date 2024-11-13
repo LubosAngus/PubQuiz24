@@ -1,23 +1,20 @@
-import type { CurrentGameEntity } from '~~/types/directus'
+import type { GameActionsEntity } from '~~/types/directus'
 
 /**
- * TODO: DRY? This and useGameActionsStore share a lot of same code.
+ * TODO: DRY? This and useCurrentGameStore share a lot of same code.
  *
  * Optimize it somehow
  */
 
-export const useCurrentGameStore = defineStore('currentGame', () => {
+export const useGameActionsStore = defineStore('gameActions', () => {
   const { directusWS, connectWebsocket } = useDirectusWebsocketStore()
   const gameDataStore = useGameDataStore()
   const toast = useToast()
-  const data = ref<CurrentGameEntity>()
+  const data = ref<GameActionsEntity>()
   const isUpdating = ref(new Set()) as Ref<Set<string>>
-  const fieldsToFetch: (keyof CurrentGameEntity)[] = [
-    'quiz',
-    'topic',
-    'question',
-    'round_index',
-    'state',
+  const fieldsToFetch: (keyof GameActionsEntity)[] = [
+    'action_pressed',
+    'media_volume',
   ]
 
   const initWebsocket = async () => {
@@ -37,24 +34,24 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
 
         // Multiple connections go through websockets, so filter only one we want
         if (
-          (isSubscription && message.uid !== 'current_game_subscription') ||
+          (isSubscription && message.uid !== 'game_actions_subscription') ||
           (!isSubscription && !isUpdating.value.has(message.uid))
         ) {
           return
         }
 
-        const messageData: CurrentGameEntity = isSubscription
+        const messageData: GameActionsEntity = isSubscription
           ? message.data[0]
           : message.data
 
         const dataKeys = [
           ...Object.keys(data.value || {}),
           ...Object.keys(messageData || {}),
-        ] as (keyof CurrentGameEntity)[]
+        ] as (keyof GameActionsEntity)[]
 
         const changedData: Map<
-          keyof CurrentGameEntity,
-          CurrentGameEntity[keyof CurrentGameEntity]
+          keyof GameActionsEntity,
+          GameActionsEntity[keyof GameActionsEntity]
         > = new Map()
 
         for (const dataKey of dataKeys) {
@@ -78,15 +75,21 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
         // Assign data from response to current data object
         data.value = messageData
 
-        if (changedData.has('quiz')) {
+        if (changedData.get('action_pressed') === 'refresh_data') {
           await gameDataStore.refreshData()
+        }
+
+        if (messageData.action_pressed !== null) {
+          updateGameAction('reset_action_pressed', {
+            action_pressed: null,
+          })
         }
       })
 
       directusWS.sendMessage({
-        uid: 'current_game_subscription',
+        uid: 'game_actions_subscription',
         type: 'subscribe',
-        collection: 'current_game',
+        collection: 'game_actions',
         action: 'update',
         query: {
           fields: fieldsToFetch,
@@ -99,9 +102,9 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
 
   initWebsocket()
 
-  async function updateCurrentGame(
+  async function updateGameAction(
     uid: string,
-    newData: Partial<CurrentGameEntity>,
+    newData: Partial<GameActionsEntity>,
   ) {
     if (isUpdating.value.has(uid)) {
       console.warn(`"${uid}" is already pending`)
@@ -113,7 +116,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
     directusWS.sendMessage({
       uid,
       type: 'items',
-      collection: 'current_game',
+      collection: 'game_actions',
       action: 'update',
       query: {
         fields: fieldsToFetch,
@@ -139,7 +142,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
 
   return {
     data,
-    updateCurrentGame,
+    updateGameAction,
     isUpdating,
   }
 })

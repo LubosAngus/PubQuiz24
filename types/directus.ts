@@ -26,9 +26,10 @@ export type GameActionsEntity = {
     | 'fullscreen'
     | 'play_answer'
     | 'show_anser'
+    | 'refresh_data'
     | null
   id: number
-  media_volume: number | null
+  media_volume: number
 }
 
 export type QuestionsEntity = {
