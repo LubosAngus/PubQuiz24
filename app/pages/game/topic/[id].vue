@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { TransitionProps } from 'vue'
+import topicTransitions from '~/utils/transitions/topicTransitions'
 import useDynamicFontSize from '~/composable/useDynamicFontSize'
-import useTopicTransitions from '~/composable/useTopicTransitions'
 
 definePageMeta({
   middleware(to, from) {
-    const topicTransitions = useTopicTransitions()
-
     to.meta.pageTransition = {
       css: false,
       mode: 'out-in',
@@ -21,6 +19,12 @@ definePageMeta({
     const pageTransitionMap: {
       [key: string]: TransitionProps
     } = {
+      'game-question-id': {
+        mode: 'in-out',
+        onEnter: (el, done) => {
+          topicTransitions.onEnter(el, done, 0.2)
+        },
+      },
       'game-topic-id': {
         mode: 'in-out',
       },

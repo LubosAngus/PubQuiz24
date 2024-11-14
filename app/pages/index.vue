@@ -19,7 +19,7 @@ const assetLoaderStore = useAssetLoaderStore()
 </script>
 
 <template>
-  <div class="q-absolute-full">
+  <div class="q-absolute-full tabular-nums">
     <div class="q-absolute-full grid place-items-center">
       <div
         class="flex flex-col items-cetner text-center gap-3 font-secondary text-black"

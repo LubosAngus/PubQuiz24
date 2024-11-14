@@ -36,6 +36,7 @@ useGameActionsStore()
 body {
   font-family: 'Alegreya', sans-serif;
   font-optical-sizing: auto;
+  font-variant-numeric: lining-nums;
   font-weight: 400;
   font-style: normal;
   font-size: 14px;

@@ -25,30 +25,33 @@ const isSomethingLoading = computed(() => {
       />
     </div>
 
-    <div class="basis-64 grow-0 shrink-0 flex flex-col p-6 overflow-auto">
-      <AdminQuizSelector />
-      <Divider />
-      <AdminRoundSelector />
-      <div class="mt-auto">
-        <Divider />
+    <div
+      class="basis-auto sm:basis-64 grow-0 shrink-0 p-4 sm:p-6 overflow-auto order-last sm:order-first border-t border-[var(--p-divider-border-color)] sm:border-none"
+    >
+      <div class="grid grid-cols-[1fr_180px] gap-3 sm:flex sm:flex-col h-full">
+        <div>
+          <AdminQuizSelector />
+          <Divider />
+          <AdminRoundSelector />
+        </div>
+
+        <div v-if="gameDataStore.data" class="sm:mt-auto">
+          <Divider class="[&&]:hidden [&&]:sm:flex" />
+          <AdminActionsSpotify />
+          <Divider />
+          <AdminActionsState />
+          <Divider />
+          <AdminActionsVolumeSlider class="mb-3" />
+          <AdminActionsGame />
+        </div>
       </div>
-      <template v-if="gameDataStore.data">
-        <AdminActionsSpotify />
-        <Divider />
-        <AdminActionsState />
-        <Divider />
-        <AdminActionsGame class="mb-3" />
-        <AdminActionsVolumeSlider />
-        <Divider />
-        <AdminActionsAnswer />
-      </template>
     </div>
 
     <div class="hidden sm:block">
       <Divider layout="vertical" class="[&&]:m-0" />
     </div>
 
-    <div class="flex-auto overflow-auto p-6">
+    <div class="flex-auto overflow-auto p-4 sm:p-6">
       <AdminTopicAndQuestionSelector />
     </div>
   </div>

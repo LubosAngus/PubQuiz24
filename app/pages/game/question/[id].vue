@@ -1,8 +1,43 @@
 <script setup lang="ts">
+import type { TransitionProps } from 'vue'
+import questionTransitions from '~/utils/transitions/questionTransitions'
+
 definePageMeta({
-  pageTransition: {
-    css: false,
-    mode: 'out-in',
+  middleware(to, from) {
+    to.meta.pageTransition = {
+      css: false,
+      mode: 'out-in',
+      onEnter: questionTransitions.onEnter,
+      onLeave: questionTransitions.onLeave,
+    }
+
+    if (!from.name) {
+      return
+    }
+
+    const pageTransitionMap: {
+      [key: string]: TransitionProps
+    } = {
+      'game-question-id': {
+        mode: 'in-out',
+        onEnter: (el, done) => {
+          questionTransitions.onEnter(el, done, 0.2)
+        },
+      },
+      'game-topic-id': {
+        mode: 'in-out',
+        onEnter: (el, done) => {
+          questionTransitions.onEnter(el, done, 0.35)
+        },
+      },
+    }
+
+    if (pageTransitionMap[from.name.toString()]) {
+      to.meta.pageTransition = {
+        ...to.meta.pageTransition,
+        ...pageTransitionMap[from.name.toString()],
+      }
+    }
   },
 })
 
@@ -13,56 +48,57 @@ const question = computed(() => {
   return gameDataStore.getQuestionById(route.params.id as string)!
 })
 
-const questionWordCount = computed(() => {
-  const strippedText = stripHtmlTags(question.value.question!)
-  return countWords(strippedText)
-})
+const showAnswer = ref(false)
+const gameActionsStore = useGameActionsStore()
+watch(
+  () => gameActionsStore.data.action_pressed,
+  async (actionPressed) => {
+    if (actionPressed === null) return
 
-const questionAdditionalClasses = computed(() => {
-  const wordCountTextSizeMap = {
-    10: 'text-8xl',
-    25: 'text-7xl',
-    40: 'text-6xl',
-    80: 'text-5xl',
-    120: 'text-4xl',
-  }
-
-  let finalTextSizeClass = 'text-3xl'
-  for (const [value, textSizeClass] of Object.entries(wordCountTextSizeMap)) {
-    if (questionWordCount.value > parseInt(value)) {
-      continue
+    if (actionPressed === 'show_anser') {
+      showAnswer.value = !showAnswer.value
     }
+  },
+)
 
-    finalTextSizeClass = textSizeClass
-
-    break
-  }
-
-  return [finalTextSizeClass]
+/**
+ * Currently is not possbile to have image and audio on same question.
+ * Any combination of those two.
+ */
+const hasImage = computed(() => {
+  return question.value.question_image || question.value.answer_image
 })
 </script>
 
 <template>
-  <div class="q-absolute-full grid place-items-center text-center p-20">
+  <div class="q-absolute-full text-center p-20">
     <div class="flex flex-col gap-4 h-full w-full justify-center">
-      <div v-if="question?.question_image" class="flex-1 relative">
-        <DirectusImage
-          :size-key="2880"
-          :image-id="question?.question_image"
-          class="w-full h-full absolute object-contain"
-        />
-      </div>
-
-      <div v-if="question?.question_audio" class="relative mb-10">
+      <div
+        v-if="question?.question_audio || question?.answer_audio"
+        class="relative mb-10 w-full h-[25dvh]"
+      >
         <GameQuestionAudio :question="question" />
       </div>
 
-      <div
-        v-if="question?.question"
-        class="font-medium max-w-6xl self-center"
-        :class="questionAdditionalClasses"
-        v-html="question?.question"
-      />
+      <div class="grid" :class="hasImage && 'h-full'">
+        <transition
+          @enter="questionTransitions.answerRevealOnEnter"
+          @leave="questionTransitions.answerRevealOnLeave"
+        >
+          <GameQuestionInterface
+            v-if="!showAnswer"
+            class="col-span-full row-span-full will-change-[transform,clip-path]"
+            :question="question"
+          />
+
+          <GameQuestionInterface
+            v-else
+            class="col-span-full row-span-full will-change-[transform,clip-path]"
+            :question="question"
+            :is-answer="true"
+          />
+        </transition>
+      </div>
     </div>
   </div>
 </template>

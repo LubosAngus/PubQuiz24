@@ -14,8 +14,9 @@ const audioSrc = computed(() => {
   return getDirectusAssetUrl(audioId.value)
 })
 
+const motionAnalyzerVisible = ref(false)
 const audioMotionInstance = ref()
-onMounted(() => {
+onMounted(async () => {
   audioMotionInstance.value = new AudioMotionAnalyzer(motionAnalyzerEl.value, {
     source: audioEl.value,
     volume: gameActionsStore.data?.media_volume / 100,
@@ -82,7 +83,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (typeof audioMotionInstance.value.destroy === 'function') {
+  if (typeof audioMotionInstance.value?.destroy === 'function') {
     audioMotionInstance.value.destroy()
   }
 })
@@ -100,6 +101,8 @@ watch(
     if (actionPressed === null) return
 
     if (actionPressed === 'play' || actionPressed === 'play_answer') {
+      motionAnalyzerVisible.value = true
+
       if (actionPressed === 'play' && props.question.question_audio) {
         audioId.value = props.question.question_audio
       }
@@ -122,15 +125,19 @@ watch(
 </script>
 
 <template>
-  <div class="w-full h-[25dvh]">
-    <div ref="motionAnalyzerEl" class="w-full h-full" />
+  <div
+    ref="motionAnalyzerEl"
+    class="w-full h-full"
+    :class="{
+      hidden: !motionAnalyzerVisible,
+    }"
+  />
 
-    <audio
-      ref="audioEl"
-      class="hidden"
-      controls
-      :src="audioSrc"
-      crossorigin="anonymous"
-    />
-  </div>
+  <audio
+    ref="audioEl"
+    class="hidden"
+    controls
+    :src="audioSrc"
+    crossorigin="anonymous"
+  />
 </template>

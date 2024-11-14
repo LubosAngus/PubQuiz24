@@ -69,6 +69,7 @@ export const useAssetLoaderStore = defineStore('assetLoader', () => {
       if (question.question_video) {
         acc.push(getDirectusAssetUrl(question.question_video))
       }
+
       if (question.answer_video) {
         acc.push(getDirectusAssetUrl(question.answer_video))
       }
@@ -124,6 +125,7 @@ export const useAssetLoaderStore = defineStore('assetLoader', () => {
       await new Promise((resolve, reject) => {
         const video = document.createElement('video')
 
+        video.preload = 'auto'
         video.onloadeddata = resolve
         video.onerror = reject
 

@@ -14,22 +14,32 @@ const actionItems: ({
     severity: 'info',
   },
   {
-    key: 'go_backward',
-    icon: 'backward-step',
-    severity: 'success',
-  },
-  {
-    key: 'go_forward',
-    icon: 'forward-step',
-    severity: 'success',
-  },
-  null,
-  {
     // TODO: on fullscreen, don't forget to block sleep
     key: 'fullscreen',
     icon: 'expand',
     severity: 'secondary',
   },
+  null,
+  {
+    key: 'play_answer',
+    icon: 'play',
+    severity: 'danger',
+  },
+  {
+    key: 'show_anser',
+    icon: 'comment',
+    severity: 'danger',
+  },
+  // {
+  //   key: 'go_backward',
+  //   icon: 'backward-step',
+  //   severity: 'success',
+  // },
+  // {
+  //   key: 'go_forward',
+  //   icon: 'forward-step',
+  //   severity: 'success',
+  // },
 ]
 
 function selectGameAction(gameAction: GameActionsEntity['action_pressed']) {

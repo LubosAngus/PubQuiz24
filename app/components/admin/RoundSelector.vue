@@ -18,7 +18,7 @@ function selectRound(round: Round) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="grid grid-cols-2 sm:flex sm:flex-col gap-2">
     <template v-if="!gameDataStore.data">
       <Skeleton height="3.4rem" width="100%" />
       <Skeleton height="3.4rem" width="100%" />
@@ -37,12 +37,14 @@ function selectRound(round: Round) {
         size="small"
         @click="selectRound(round)"
       >
-        <div class="flex w-full gap-2 text-sm leading-4">
-          <div class="font-bold italic text-slate-500">
+        <div
+          class="flex w-full gap-2 text-xs leading-none sm:text-sm sm:leading-4"
+        >
+          <div class="font-bold italic text-slate-500 hidden sm:block">
             #{{ round.index + 1 }}
           </div>
 
-          <div class="flex flex-col font-semibold">
+          <div class="flex flex-col font-semibold gap-1 sm:gap-0">
             <span v-for="topic in round.topics" :key="topic.id">{{
               topic.name
             }}</span>
