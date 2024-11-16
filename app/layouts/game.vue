@@ -1,13 +1,5 @@
 <script setup lang="ts">
-const assetLoaderStore = useAssetLoaderStore()
-const frontendRedirectsStore = useFrontendRedirectsStore()
-
-onMounted(async () => {
-  await assetLoaderStore.waitForAssetsToLoad()
-  await sleep(300)
-
-  frontendRedirectsStore.startWatchingForRedirects()
-})
+useAssetLoaderStore()
 </script>
 
 <template>

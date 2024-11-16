@@ -10,7 +10,7 @@ const stateItems: {
 }[] = [
   {
     key: 'logo',
-    icon: 'house',
+    icon: 'tv',
     severity: 'info',
   },
   {

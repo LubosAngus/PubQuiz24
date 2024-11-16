@@ -1,10 +1,16 @@
-export default function (text: string) {
+export default function (
+  text: string,
+  maxWidthPercentage?: number,
+  maxHeightPercentage?: number,
+) {
   const fontSize = ref(100)
 
   function calculateFontSize() {
     fontSize.value = calculateFontSizeToFit(text, {
       targetWidth: window.innerWidth,
       targetHeight: window.innerHeight,
+      maxWidthPercentage,
+      maxHeightPercentage,
     })
   }
 

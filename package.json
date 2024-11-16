@@ -26,6 +26,7 @@
     "audiomotion-analyzer": "^4.5.0",
     "gsap": "^3.12.5",
     "normalize.css": "^8.0.1",
+    "nosleep.js": "^0.12.0",
     "nuxt": "^3.13.2",
     "primevue": "^4.2.0",
     "tailwindcss-primeui": "^0.3.4",

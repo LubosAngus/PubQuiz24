@@ -25,7 +25,7 @@ onMounted(async () => {
   audioMotionInstance.value.registerGradient('quiz-gradient', {
     bgColor: 'white',
     dir: 'h',
-    colorStops: ['#ff6e00', '#918c2b', '#34828f', '#015fe1'],
+    colorStops: ['#ff7600', '#a5a11c', '#1da58d', '#1e74eb'],
   })
 
   audioMotionInstance.value.setOptions({

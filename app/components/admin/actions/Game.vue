@@ -42,11 +42,20 @@ const actionItems: ({
   // },
 ]
 
+const { $noSleep } = useNuxtApp()
 function selectGameAction(gameAction: GameActionsEntity['action_pressed']) {
+  $noSleep.enable()
+
   gameActionsStore.updateGameAction('game_action', {
     action_pressed: gameAction,
   })
 }
+
+onMounted(() => {
+  window.addEventListener('beforeunload', () => {
+    $noSleep.disable()
+  })
+})
 </script>
 
 <template>

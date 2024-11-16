@@ -7,7 +7,7 @@ definePageMeta({
   middleware(to, from) {
     to.meta.pageTransition = {
       css: false,
-      mode: 'out-in',
+      mode: 'in-out',
       onEnter: topicTransitions.onEnter,
       onLeave: topicTransitions.onLeave,
     }
@@ -20,16 +20,9 @@ definePageMeta({
       [key: string]: TransitionProps
     } = {
       'game-question-id': {
-        mode: 'in-out',
         onEnter: (el, done) => {
           topicTransitions.onEnter(el, done, 0.2)
         },
-      },
-      'game-topic-id': {
-        mode: 'in-out',
-      },
-      'index': {
-        mode: 'in-out',
       },
     }
 
@@ -69,17 +62,17 @@ const fontSize = useDynamicFontSize(topic.value.name!)
         }"
       >
         <div class="q-absolute-full">
-          <div class="q-absolute-full bg-slate-950" />
+          <div class="q-absolute-full bg-slate-700" />
 
           <div
-            class="q-absolute-full opacity-60 bg-[linear-gradient(45deg,_#ff6e00,_#918c2b,_#34828f,_#015fe1)]"
+            class="q-absolute-full opacity-80 bg-[linear-gradient(45deg,_#ff7600,_#a5a11c,_#1da58d,_#1e74eb)]"
           />
 
           <DirectusImage
             v-if="topic?.background_image"
             :size-key="2880"
             :image-id="topic?.background_image"
-            class="q-absolute-full opacity-40 mix-blend-multiply object-cover"
+            class="q-absolute-full opacity-70 mix-blend-multiply object-cover"
           />
 
           <div
