@@ -68,7 +68,7 @@ watch(visible, (newValue) => {
         :options="data"
         option-value="id"
         option-label="name"
-        placeholder="Select a Country"
+        placeholder="Vyber kvíz"
         class="w-full"
         :disabled="currentGameStore.isUpdating.has('select_quiz')"
       />

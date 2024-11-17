@@ -67,7 +67,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
         }
 
         // no changes has been made
-        if (changedData.size === 0) {
+        if (changedData.size === 0 && data.value) {
           if (isUpdating.value.has(message.uid)) {
             isUpdating.value.delete(message.uid)
           }
@@ -76,7 +76,7 @@ export const useCurrentGameStore = defineStore('currentGame', () => {
         }
 
         // Assign data from response to current data object
-        data.value = messageData
+        data.value = messageData || {}
 
         if (isUpdating.value.has(message.uid)) {
           isUpdating.value.delete(message.uid)

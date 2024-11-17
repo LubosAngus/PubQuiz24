@@ -1,4 +1,4 @@
-import MyTheme from './primevue.theme'
+import QuizTheme from './primevue.theme'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -10,6 +10,14 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
+  runtimeConfig: {
+    // ? to change, go to .env and prefix these with NUXT_PUBLIC_[name]
+    public: {
+      SPOTIFY_CLIENT_ID: undefined,
+      DIRECTUS_PORT: undefined,
+      DIRECTUS_API_TOKEN: undefined,
+    },
+  },
   modules: [
     '@nuxt/eslint',
     '@primevue/nuxt-module',
@@ -19,7 +27,7 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       theme: {
-        preset: MyTheme,
+        preset: QuizTheme,
         ripple: true,
         inputVariant: 'filled',
         options: {
@@ -31,6 +39,8 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'PubQuiz Pyčo',
+
+      // TODO: download fonts locally to serve them even without internet
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         {

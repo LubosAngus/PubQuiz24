@@ -17,7 +17,7 @@ function openDialog() {
 
 const buttonLabel = computed(() => {
   if (!gameDataStore.data) {
-    return '...'
+    return 'Vyber kvíz'
   }
 
   if (gameDataStore.selectedQuizName) {
@@ -29,18 +29,7 @@ const buttonLabel = computed(() => {
 </script>
 
 <template>
-  <Skeleton
-    v-if="!gameDataStore.data"
-    height="2.25rem"
-    :style="{
-      '--p-skeleton-background':
-        'color-mix(in srgb, var(--p-primary-color) 15%, transparent)',
-      '--p-skeleton-animation-background':
-        'color-mix(in srgb, var(--p-primary-color) 50%, transparent)',
-    }"
-  />
-
-  <div v-else class="flex gap-1">
+  <div class="flex gap-1">
     <Button
       type="button"
       class="flex-1"
@@ -56,6 +45,7 @@ const buttonLabel = computed(() => {
     </Button>
 
     <Button
+      v-if="gameDataStore.data"
       type="button"
       class="grow-0 aspect-square"
       variant="outlined"

@@ -1,7 +1,7 @@
 import Aura from '@primevue/themes/aura'
 import { definePreset } from '@primevue/themes'
 
-const MyTheme = definePreset(Aura, {
+const QuizTheme = definePreset(Aura, {
   semantic: {
     primary: {
       50: '{amber.50}',
@@ -61,4 +61,4 @@ const MyTheme = definePreset(Aura, {
   },
 })
 
-export default MyTheme
+export default QuizTheme

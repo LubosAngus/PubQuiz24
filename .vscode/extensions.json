@@ -1,3 +1,10 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "aaron-bond.better-comments",
+    "bradlc.vscode-tailwindcss",
+    "austenc.tailwind-docs",
+    "BriteSnow.vscode-toggle-quotes"
+  ]
 }

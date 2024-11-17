@@ -1,0 +1,2553 @@
+version: 1
+directus: 11.2.0
+vendor: sqlite
+collections:
+  - collection: current_game
+    meta:
+      accountability: null
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: current_game
+      color: '#2ECDA7'
+      display_template: null
+      group: null
+      hidden: false
+      icon: interactive_space
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: true
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: current_game
+  - collection: game_actions
+    meta:
+      accountability: null
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: game_actions
+      color: '#E35169'
+      display_template: null
+      group: current_game
+      hidden: false
+      icon: magic_button
+      item_duplication_fields: []
+      note: null
+      preview_url: null
+      singleton: true
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: game_actions
+  - collection: questions
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: questions
+      color: null
+      display_template: '#{{sort}} - {{question}}'
+      group: topics
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: sort
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: questions
+  - collection: quizes
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: quizes
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: quizes
+  - collection: quizes_topics
+    meta:
+      accountability: null
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: quizes_topics
+      color: null
+      display_template: null
+      group: null
+      hidden: true
+      icon: import_export
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 3
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: quizes_topics
+  - collection: topics
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: archived
+      collapse: open
+      collection: topics
+      color: '#FFA439'
+      display_template: '{{name}}'
+      group: quizes
+      hidden: false
+      icon: topic
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: draft
+      versioning: false
+    schema:
+      name: topics
+fields:
+  - collection: current_game
+    field: id
+    type: integer
+    meta:
+      collection: current_game
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: current_game
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: current_game
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: current_game
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - date-updated
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: date_updated
+      table: current_game
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: current_game
+    field: topic
+    type: string
+    meta:
+      collection: current_game
+      conditions: null
+      display: null
+      display_options: null
+      field: topic
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        filter: null
+        template: '{{name}}'
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: topic
+      table: current_game
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: topics
+      foreign_key_column: id
+  - collection: current_game
+    field: question
+    type: string
+    meta:
+      collection: current_game
+      conditions: null
+      display: null
+      display_options: null
+      field: question
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: question
+      table: current_game
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: questions
+      foreign_key_column: id
+  - collection: current_game
+    field: state
+    type: string
+    meta:
+      collection: current_game
+      conditions: null
+      display: null
+      display_options: null
+      field: state
+      group: null
+      hidden: false
+      interface: select-radio
+      note: null
+      options:
+        choices:
+          - text: Logo
+            value: logo
+          - text: Intro
+            value: intro
+          - text: Gameplay
+            value: gameplay
+          - text: Countdown
+            value: countdown
+          - text: Break
+            value: break
+          - text: Leaderboard
+            value: leaderboard
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: state
+      table: current_game
+      data_type: varchar
+      default_value: logo
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: current_game
+    field: quiz
+    type: string
+    meta:
+      collection: current_game
+      conditions: null
+      display: null
+      display_options: null
+      field: quiz
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{name}}'
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: quiz
+      table: current_game
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: quizes
+      foreign_key_column: id
+  - collection: current_game
+    field: round_index
+    type: integer
+    meta:
+      collection: current_game
+      conditions: null
+      display: null
+      display_options: null
+      field: round_index
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        min: 0
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: round_index
+      table: current_game
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: game_actions
+    field: id
+    type: integer
+    meta:
+      collection: game_actions
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: game_actions
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: game_actions
+    field: media_volume
+    type: integer
+    meta:
+      collection: game_actions
+      conditions: null
+      display: null
+      display_options: null
+      field: media_volume
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: volume_up
+        max: 100
+        min: 0
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: media_volume
+      table: game_actions
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: game_actions
+    field: action_pressed
+    type: string
+    meta:
+      collection: game_actions
+      conditions: null
+      display: null
+      display_options: null
+      field: action_pressed
+      group: null
+      hidden: false
+      interface: select-radio
+      note: null
+      options:
+        choices:
+          - text: play
+            value: play
+          - text: go_backward
+            value: go_backward
+          - text: go_forward
+            value: go_forward
+          - text: fullscreen
+            value: fullscreen
+          - text: play_answer
+            value: play_answer
+          - text: show_anser
+            value: show_anser
+          - text: refresh_data
+            value: refresh_data
+        iconLeft: magic_button
+        iconOff: remove
+        iconOn: magic_button
+      readonly: true
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: action_pressed
+      table: game_actions
+      data_type: varchar
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: id
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: sort
+    type: integer
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: questions
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: date_created
+    type: timestamp
+    meta:
+      collection: questions
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - date-created
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: questions
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: questions
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - date-updated
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: questions
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: topic_id
+    type: string
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: topic_id
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: topic_id
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: topics
+      foreign_key_column: id
+  - collection: questions
+    field: question
+    type: text
+    meta:
+      collection: questions
+      conditions: null
+      display: formatted-value
+      display_options:
+        format: true
+      field: question
+      group: base_group
+      hidden: false
+      interface: input-rich-text-html
+      note: null
+      options:
+        customFormats: null
+        toolbar:
+          - undo
+          - redo
+          - bold
+          - italic
+          - underline
+          - subscript
+          - superscript
+          - removeformat
+          - fullscreen
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: question
+      table: questions
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: answer
+    type: text
+    meta:
+      collection: questions
+      conditions: null
+      display: formatted-value
+      display_options:
+        format: true
+      field: answer
+      group: base_group
+      hidden: false
+      interface: input-rich-text-html
+      note: null
+      options:
+        customFormats: null
+        toolbar:
+          - undo
+          - redo
+          - bold
+          - italic
+          - underline
+          - subscript
+          - superscript
+          - removeformat
+          - fullscreen
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: answer
+      table: questions
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: question_image
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: image
+      display_options: null
+      field: question_image
+      group: image_group
+      hidden: false
+      interface: file-image
+      note: null
+      options:
+        crop: false
+        folder: 027a903d-1a0f-44fb-8e13-40abe9a780e7
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: question_image
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: questions
+    field: question_video
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: file
+      display_options: null
+      field: question_video
+      group: video_group
+      hidden: false
+      interface: file
+      note: null
+      options:
+        folder: b30ae1b9-96ae-4dc3-a885-868405a3ec39
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: question_video
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: questions
+    field: question_audio
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: question_audio
+      group: audio_group
+      hidden: false
+      interface: file
+      note: null
+      options:
+        folder: 81d8e252-204a-4ca2-bf00-64db726c8a91
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: question_audio
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: questions
+    field: answer_image
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: answer_image
+      group: image_group
+      hidden: false
+      interface: file-image
+      note: null
+      options:
+        crop: false
+        folder: 77339bb4-2ea4-4dd9-a6b8-a734acffa4f5
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: answer_image
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: questions
+    field: question_video_link
+    type: string
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: question_video_link
+      group: video_group
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: question_video_link
+      table: questions
+      data_type: varchar
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: answer_audio
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: answer_audio
+      group: audio_group
+      hidden: false
+      interface: file
+      note: null
+      options:
+        folder: fb701932-d0b9-40ef-96d7-16caeb0fbebd
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: answer_audio
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: questions
+    field: answer_video
+    type: uuid
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: answer_video
+      group: video_group
+      hidden: false
+      interface: file
+      note: null
+      options:
+        folder: ffa06116-9276-4179-857d-126eecf16ea1
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: answer_video
+      table: questions
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: questions
+    field: answer_video_link
+    type: string
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: answer_video_link
+      group: video_group
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: answer_video_link
+      table: questions
+      data_type: varchar
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: notes
+    type: text
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: notes
+      group: notes_group
+      hidden: false
+      interface: input-multiline
+      note: 'Visible only for the quizmaster '
+      options:
+        softLength: null
+        trim: true
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: notes
+      table: questions
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: questions
+    field: notes_group
+    type: alias
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: notes_group
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: notes
+        start: closed
+      readonly: false
+      required: false
+      sort: 13
+      special:
+        - alias
+        - no-data
+        - group
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: questions
+    field: base_group
+    type: alias
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: base_group
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: text_snippet
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - alias
+        - no-data
+        - group
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: questions
+    field: image_group
+    type: alias
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: image_group
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: imagesmode
+        start: closed
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - alias
+        - no-data
+        - group
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: questions
+    field: audio_group
+    type: alias
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: audio_group
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: sound_detection_loud_sound
+        start: closed
+      readonly: false
+      required: false
+      sort: 11
+      special:
+        - alias
+        - no-data
+        - group
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: questions
+    field: video_group
+    type: alias
+    meta:
+      collection: questions
+      conditions: null
+      display: null
+      display_options: null
+      field: video_group
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: movie
+        start: closed
+      readonly: false
+      required: false
+      sort: 12
+      special:
+        - alias
+        - no-data
+        - group
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: quizes
+    field: id
+    type: uuid
+    meta:
+      collection: quizes
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: quizes
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quizes
+    field: user_created
+    type: string
+    meta:
+      collection: quizes
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: quizes
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: quizes
+    field: date_created
+    type: timestamp
+    meta:
+      collection: quizes
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - date-created
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: quizes
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quizes
+    field: user_updated
+    type: string
+    meta:
+      collection: quizes
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: quizes
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: quizes
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: quizes
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - date-updated
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: quizes
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quizes
+    field: name
+    type: string
+    meta:
+      collection: quizes
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: name
+      table: quizes
+      data_type: varchar
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quizes
+    field: topics
+    type: alias
+    meta:
+      collection: quizes
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{topics_id.name}}'
+      field: topics
+      group: null
+      hidden: false
+      interface: list-m2m
+      note: null
+      options:
+        enableLink: true
+        tableSpacing: compact
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: quizes
+    field: played_date
+    type: date
+    meta:
+      collection: quizes
+      conditions: null
+      display: null
+      display_options: null
+      field: played_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: played_date
+      table: quizes
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quizes_topics
+    field: id
+    type: integer
+    meta:
+      collection: quizes_topics
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: quizes_topics
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quizes_topics
+    field: quizes_id
+    type: string
+    meta:
+      collection: quizes_topics
+      conditions: null
+      display: null
+      display_options: null
+      field: quizes_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: quizes_id
+      table: quizes_topics
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: quizes
+      foreign_key_column: id
+  - collection: quizes_topics
+    field: topics_id
+    type: string
+    meta:
+      collection: quizes_topics
+      conditions: null
+      display: null
+      display_options: null
+      field: topics_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: topics_id
+      table: quizes_topics
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: topics
+      foreign_key_column: id
+  - collection: quizes_topics
+    field: sort
+    type: integer
+    meta:
+      collection: quizes_topics
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: quizes_topics
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: topics
+    field: id
+    type: uuid
+    meta:
+      collection: topics
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: topics
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: topics
+    field: user_created
+    type: string
+    meta:
+      collection: topics
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: topics
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: topics
+    field: date_created
+    type: timestamp
+    meta:
+      collection: topics
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - date-created
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: topics
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: topics
+    field: user_updated
+    type: string
+    meta:
+      collection: topics
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: topics
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: topics
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: topics
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - date-updated
+        - cast-timestamp
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: topics
+      data_type: datetime
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: topics
+    field: questions
+    type: alias
+    meta:
+      collection: topics
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{question}}'
+      field: questions
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        enableSelect: false
+        template: null
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: topics
+    field: name
+    type: string
+    meta:
+      collection: topics
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 7
+      special: null
+      translations:
+        - language: en-US
+          translation: Topic name
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: name
+      table: topics
+      data_type: varchar
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: topics
+    field: divider-0nzfld
+    type: alias
+    meta:
+      collection: topics
+      conditions: null
+      display: null
+      display_options: null
+      field: divider-0nzfld
+      group: null
+      hidden: false
+      interface: presentation-divider
+      note: null
+      options: {}
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: topics
+    field: background_image
+    type: uuid
+    meta:
+      collection: topics
+      conditions: null
+      display: image
+      display_options: null
+      field: background_image
+      group: null
+      hidden: false
+      interface: file-image
+      note: It's going to be resized to 2880 longer side
+      options:
+        folder: 9caee930-3de4-45bf-bb13-fae2aa59030d
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: background_image
+      table: topics
+      data_type: char
+      default_value: null
+      max_length: 36
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+relations:
+  - collection: current_game
+    field: topic
+    related_collection: topics
+    meta:
+      junction_field: null
+      many_collection: current_game
+      many_field: topic
+      one_allowed_collections: null
+      one_collection: topics
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: current_game
+      column: topic
+      foreign_key_table: topics
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: current_game
+    field: question
+    related_collection: questions
+    meta:
+      junction_field: null
+      many_collection: current_game
+      many_field: question
+      one_allowed_collections: null
+      one_collection: questions
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: current_game
+      column: question
+      foreign_key_table: questions
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: current_game
+    field: quiz
+    related_collection: quizes
+    meta:
+      junction_field: null
+      many_collection: current_game
+      many_field: quiz
+      one_allowed_collections: null
+      one_collection: quizes
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: current_game
+      column: quiz
+      foreign_key_table: quizes
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: questions
+    field: topic_id
+    related_collection: topics
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: topic_id
+      one_allowed_collections: null
+      one_collection: topics
+      one_collection_field: null
+      one_deselect_action: delete
+      one_field: questions
+      sort_field: sort
+    schema:
+      table: questions
+      column: topic_id
+      foreign_key_table: topics
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: CASCADE
+  - collection: questions
+    field: question_image
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: question_image
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: questions
+      column: question_image
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: questions
+    field: question_video
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: question_video
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: questions
+      column: question_video
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: questions
+    field: question_audio
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: question_audio
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: questions
+      column: question_audio
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: questions
+    field: answer_image
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: answer_image
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: questions
+      column: answer_image
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: questions
+    field: answer_audio
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: answer_audio
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: questions
+      column: answer_audio
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: questions
+    field: answer_video
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: questions
+      many_field: answer_video
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: questions
+      column: answer_video
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: quizes
+    field: user_created
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: quizes
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: quizes
+      column: user_created
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: quizes
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: quizes
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: quizes
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: quizes_topics
+    field: topics_id
+    related_collection: topics
+    meta:
+      junction_field: quizes_id
+      many_collection: quizes_topics
+      many_field: topics_id
+      one_allowed_collections: null
+      one_collection: topics
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: quizes_topics
+      column: topics_id
+      foreign_key_table: topics
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: quizes_topics
+    field: quizes_id
+    related_collection: quizes
+    meta:
+      junction_field: topics_id
+      many_collection: quizes_topics
+      many_field: quizes_id
+      one_allowed_collections: null
+      one_collection: quizes
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: topics
+      sort_field: sort
+    schema:
+      table: quizes_topics
+      column: quizes_id
+      foreign_key_table: quizes
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: topics
+    field: user_created
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: topics
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: topics
+      column: user_created
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: topics
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: topics
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: topics
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: topics
+    field: background_image
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: topics
+      many_field: background_image
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: topics
+      column: background_image
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: null
+      on_update: NO ACTION
+      on_delete: SET NULL

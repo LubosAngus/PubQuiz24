@@ -67,7 +67,7 @@ export const useGameActionsStore = defineStore('gameActions', () => {
         }
 
         // no changes has been made
-        if (changedData.size === 0) {
+        if (changedData.size === 0 && data.value) {
           if (isUpdating.value.has(message.uid)) {
             isUpdating.value.delete(message.uid)
           }
@@ -76,13 +76,13 @@ export const useGameActionsStore = defineStore('gameActions', () => {
         }
 
         // Assign data from response to current data object
-        data.value = messageData
+        data.value = messageData || {}
 
         if (isUpdating.value.has(message.uid)) {
           isUpdating.value.delete(message.uid)
         }
 
-        if (messageData.action_pressed !== null) {
+        if (messageData?.action_pressed !== null) {
           updateGameAction('reset_action_pressed', {
             action_pressed: null,
           })
