@@ -27,7 +27,7 @@ npm run start
 
 ### Quiz Admin
 
-When the app is up and running, you can go to [http://localhost:3000/admin](localhost:3000/admin).
+When the app is up and running, you can go to [localhost:3000/admin](http://localhost:3000/admin).
 
 There you need to choose quiz first and from that moment on, you're good to go.
 
@@ -52,7 +52,7 @@ Then copy your Client ID and paste it to .env `NUXT_PUBLIC_SPOTIFY_CLIENT_ID`
 
 ### Presentation
 
-Presentation is running on index of [http://localhost:3000/](localhost:3000).
+Presentation is running on index of [localhost:3000](http://localhost:3000/).
 
 All the data are loaded to cache on page enter.
 
