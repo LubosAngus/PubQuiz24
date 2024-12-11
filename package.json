@@ -1,6 +1,6 @@
 {
   "name": "pubquiz-24",
-  "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
