@@ -8,7 +8,7 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 
 Follow a readme in https://github.com/LubosAngus/PubQuiz24-Directus-CMS
 
-## App
+## Start app
 
 First of all, use node in version 22. (check .nvmrc)
 
@@ -25,13 +25,13 @@ npm run build
 npm run start
 ```
 
-### Quiz Admin
+## Quiz Admin
 
 When the app is up and running, you can go to [localhost:3000/admin](http://localhost:3000/admin).
 
 There you need to choose quiz first and from that moment on, you're good to go.
 
-#### Spotify authorization
+### Spotify authorization
 
 Go to [spotify dashboard](https://developer.spotify.com/dashboard) and [create app](https://developer.spotify.com/dashboard/create).
 
@@ -50,7 +50,7 @@ Web Playback SDK
 
 Then copy your Client ID and paste it to .env `NUXT_PUBLIC_SPOTIFY_CLIENT_ID`
 
-### Presentation
+## Presentation
 
 Presentation is running on index of [localhost:3000](http://localhost:3000/).
 
